@@ -3,7 +3,6 @@ package com.hristogochev.vortex.model
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisallowComposableCalls
 import androidx.compose.runtime.remember
-import com.hristogochev.vortex.navigator.LocalNavigator
 import com.hristogochev.vortex.navigator.LocalScreenStateKey
 import com.hristogochev.vortex.navigator.Navigator
 import com.hristogochev.vortex.screen.Screen

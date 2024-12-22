@@ -2,9 +2,6 @@ package com.hristogochev.vortex.model
 
 import androidx.compose.runtime.DisallowComposableCalls
 import com.hristogochev.vortex.util.ThreadSafeMap
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.flow.MutableStateFlow
 
 @PublishedApi

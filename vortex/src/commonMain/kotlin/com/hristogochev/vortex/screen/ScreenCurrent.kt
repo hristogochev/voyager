@@ -194,7 +194,10 @@ public fun <T : Screen> T.render(content: @Composable (T) -> Unit = { it.Content
     val stateHolder = LocalNavigatorStateHolder.currentOrThrow
     val navigator = LocalNavigator.currentOrThrow
 
-    val screenStateKey = "${key}:${navigator.key}"
+    val screenStateKey = remember(key, navigator.key) {
+        "${key}:${navigator.key}"
+    }
+
     navigator.associateScreenStateKey(screenStateKey)
 
     stateHolder.SaveableStateProvider(screenStateKey) {
