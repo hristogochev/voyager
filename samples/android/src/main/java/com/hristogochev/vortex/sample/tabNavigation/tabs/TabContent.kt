@@ -11,13 +11,13 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.hristogochev.vortex.screen.CurrentScreen
 import com.hristogochev.vortex.navigator.LocalNavigator
 import com.hristogochev.vortex.navigator.Navigator
 import com.hristogochev.vortex.sample.basicNavigation.BasicNavigationScreen
+import com.hristogochev.vortex.screen.CurrentScreen
 import com.hristogochev.vortex.screen.ScreenDisposableEffect
 import com.hristogochev.vortex.tab.Tab
-import com.hristogochev.vortex.transitions.slideTransition
+import com.hristogochev.vortex.transitions.SlideTransition
 import com.hristogochev.vortex.util.currentOrThrow
 
 
@@ -41,7 +41,11 @@ fun Tab.TabContent() {
         }
     }
     Navigator(BasicNavigationScreen(index = 0)) { navigator ->
-        CurrentScreen(navigator, defaultTransition = slideTransition(navigator)) { screen ->
+        CurrentScreen(
+            navigator = navigator,
+            onScreenAppear = SlideTransition.Horizontal.Appear,
+            onScreenDisappear = SlideTransition.Horizontal.Disappear,
+        ) { screen ->
             Column {
                 InnerTabNavigation()
                 screen.Content()

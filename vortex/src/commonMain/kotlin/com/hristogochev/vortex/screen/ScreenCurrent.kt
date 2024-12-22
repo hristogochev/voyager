@@ -1,12 +1,11 @@
 package com.hristogochev.vortex.screen
 
 import androidx.compose.animation.AnimatedContent
-import androidx.compose.animation.AnimatedContentTransitionScope
 import androidx.compose.animation.AnimatedVisibilityScope
 import androidx.compose.animation.ContentTransform
 import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
-import androidx.compose.animation.togetherWith
+import androidx.compose.animation.SizeTransform
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.DisposableEffect
@@ -41,9 +40,8 @@ import com.hristogochev.vortex.util.currentOrThrow
 @Composable
 public fun CurrentScreen(
     navigator: Navigator,
-    defaultTransition: AnimatedContentTransitionScope<Screen>.() -> ContentTransform = {
-        (EnterTransition.None togetherWith ExitTransition.None)
-    },
+    onScreenAppear: ScreenTransition? = null,
+    onScreenDisappear: ScreenTransition? = null,
     modifier: Modifier = Modifier,
     contentAlignment: Alignment = Alignment.TopStart,
     contentKey: (Screen) -> Any = { it.key },
@@ -70,21 +68,17 @@ public fun CurrentScreen(
     AnimatedContent(
         targetState = navigator.lastItem,
         transitionSpec = {
-            val contentTransform = defaultTransition()
 
-            val customTransition = when (navigator.lastEvent) {
-                StackEvent.Pop -> initialState.onDisappear
-                else -> targetState.onAppear
+            val transition = when (navigator.lastEvent) {
+                StackEvent.Pop -> initialState.onDisappear ?: onScreenDisappear
+                else -> targetState.onAppear ?: onScreenAppear
             }
 
             ContentTransform(
-                targetContentEnter = customTransition?.enter()
-                    ?: contentTransform.targetContentEnter,
-                initialContentExit = customTransition?.exit()
-                    ?: contentTransform.initialContentExit,
-                targetContentZIndex = customTransition?.zIndex
-                    ?: contentTransform.targetContentZIndex,
-                sizeTransform = contentTransform.sizeTransform
+                targetContentEnter = transition?.enter() ?: EnterTransition.None,
+                initialContentExit = transition?.exit() ?: ExitTransition.None,
+                targetContentZIndex = transition?.zIndex ?: 0f,
+                sizeTransform = transition?.sizeTransform() ?: SizeTransform()
             )
         },
         contentAlignment = contentAlignment,
@@ -94,6 +88,7 @@ public fun CurrentScreen(
         if (this.transition.targetState == this.transition.currentState) {
             val stateHolder = LocalNavigatorStateHolder.currentOrThrow
 
+            // This updates when the transition is done
             LaunchedEffect(Unit) {
                 // We perform a check again, we remove all from the unexpected queue that are actually expected
                 val currentScreenStateKeys = navigator.items.map { "${it.key}:${navigator.key}" }

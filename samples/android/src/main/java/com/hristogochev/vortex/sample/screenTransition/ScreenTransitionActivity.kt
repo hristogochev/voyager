@@ -16,9 +16,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.hristogochev.vortex.screen.CurrentScreen
 import com.hristogochev.vortex.navigator.Navigator
-import com.hristogochev.vortex.transitions.slideTransition
+import com.hristogochev.vortex.screen.CurrentScreen
+import com.hristogochev.vortex.transitions.SlideTransition
 import kotlin.random.Random
 
 class ScreenTransitionActivity : ComponentActivity() {
@@ -37,7 +37,11 @@ class ScreenTransitionActivity : ComponentActivity() {
             screen = NoCustomAnimationSampleScreen(0),
         ) { navigator ->
             Box(modifier = Modifier.fillMaxSize()) {
-                CurrentScreen(navigator = navigator, defaultTransition = slideTransition(navigator))
+                CurrentScreen(
+                    navigator = navigator,
+                    onScreenAppear = SlideTransition.Horizontal.Appear,
+                    onScreenDisappear = SlideTransition.Horizontal.Disappear,
+                )
 
                 Column(
                     modifier = Modifier

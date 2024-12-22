@@ -114,6 +114,6 @@ data class SlideInVerticallyAnimationSampleScreen(
 ) : BaseSampleScreen(
     "slide in vertically transition",
     index = index,
-    onAppear = SlideTransition.Vertical.Push,
-    onDisappear = SlideTransition.Vertical.Pop
+    onAppear = SlideTransition.Vertical.Appear,
+    onDisappear = SlideTransition.Vertical.Disappear
 )
