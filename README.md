@@ -5,22 +5,24 @@
 [![License MIT](https://img.shields.io/github/license/adrielcafe/voyager.svg?style=for-the-badge&color=orange)](LICENSE.md)
 
 <h1 align="center">
-    <img height="150" src="https://user-images.githubusercontent.com/2512298/127723355-f56b3040-47cb-44fd-8504-a1868721c1a3.png"/>
+    <img height="150" src="images/vortex_og.png"/>
     <br>
-    <a href="https://voyager.adriel.cafe">Voyager</a>: Compose on Warp Speed
+    <a href="https://io.github.hristogochev/vortex">Vortex</a>: Where Navigation Meets Momentum
 </h1>
 
-A multiplatform navigation library built for, and seamlessly integrated with, [Jetpack Compose](https://developer.android.com/jetpack/compose).
+A minimalist and stable Compose multiplatform navigation library, built as an optimized fork of [Voyager](https://github.com/adrielcafe/voyager).
 
-Create scalable Single-Activity apps powered by a [pragmatic API](https://voyager.adriel.cafe/navigation):
+Build scalable apps with a minimal, developer-friendly [API](https://io.github.hristogochev.vortex/navigation).
 
 ```kotlin
-class HomeScreenModel : ScreenModel {
+class HomeScreenModel : ScreenModel() {
     // ...
 }
 
 class HomeScreen : Screen {
-
+    
+    override val key = "HomeScreen"
+    
     @Composable
     override fun Content() {
         val screenModel = rememberScreenModel<HomeScreenModel>()
@@ -28,14 +30,12 @@ class HomeScreen : Screen {
     }
 }
 
-class SingleActivity : ComponentActivity() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
 
-        setContent {
-            Navigator(HomeScreen())
-        }
+@Composable
+fun App(){
+    Navigator(HomeScreen()){
+        CurrentScreen(it, fadeTransition())
     }
 }
 ```

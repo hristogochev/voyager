@@ -12,15 +12,18 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.Saver
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.hristogochev.vortex.model.ScreenModelStore
 import com.hristogochev.vortex.navigator.LocalNavigator
 import com.hristogochev.vortex.navigator.LocalNavigatorStateHolder
-import com.hristogochev.vortex.navigator.LocalScreenKey
+import com.hristogochev.vortex.navigator.LocalScreenStateKey
 import com.hristogochev.vortex.navigator.Navigator
 import com.hristogochev.vortex.stack.StackEvent
 import com.hristogochev.vortex.stack.isDisposableEvent
@@ -46,16 +49,21 @@ public fun CurrentScreen(
     contentKey: (Screen) -> Any = { it.key },
     content: @Composable AnimatedVisibilityScope.(Screen) -> Unit = { it.Content() },
 ) {
-    val screenCandidatesToDispose = rememberSaveable(saver = screenCandidatesToDisposeSaver()) {
+    // This updates instantly when the stack changes
+    var unexpectedScreenStateKeysQueue by rememberSaveable(saver = unexpectedScreenStateKeysQueueSaver()) {
         mutableStateOf(emptySet())
     }
 
-    val currentScreens = navigator.items
+    val oldScreens = navigator.items
 
-    DisposableEffect(currentScreens) {
+    DisposableEffect(oldScreens) {
         onDispose {
-            val newScreenKeys = navigator.items.map { it.key }
-            screenCandidatesToDispose.value += currentScreens.filter { it.key !in newScreenKeys }
+            val oldScreenStateKeys = oldScreens.map { "${it.key}:${navigator.key}" }
+            val currentScreenStateKeys = navigator.items.map { "${it.key}:${navigator.key}" }
+            val unexpectedScreenStateKeys = oldScreenStateKeys.filter {
+                it !in currentScreenStateKeys
+            }
+            unexpectedScreenStateKeysQueue += unexpectedScreenStateKeys
         }
     }
 
@@ -87,28 +95,28 @@ public fun CurrentScreen(
             val stateHolder = LocalNavigatorStateHolder.currentOrThrow
 
             LaunchedEffect(Unit) {
-                val newScreens = navigator.items.map { it.key }
+                // We perform a check again, we remove all from the unexpected queue that are actually expected
+                val currentScreenStateKeys = navigator.items.map { "${it.key}:${navigator.key}" }
 
-                val deletedScreenKeys = screenCandidatesToDispose.value
-                    .filterNot { it.key in newScreens }
-                    .map { it.key }
+                val unexpectedScreenStateKeys = unexpectedScreenStateKeysQueue
+                    .filter { it !in currentScreenStateKeys }
 
-                if (deletedScreenKeys.isNotEmpty()) {
+                if (unexpectedScreenStateKeys.isNotEmpty()) {
 
-                    for (screenKey in deletedScreenKeys) {
-                        ScreenModelStore.dispose(screenKey)
+                    for (unexpectedScreenStateKey in unexpectedScreenStateKeys) {
+                        ScreenModelStore.dispose(unexpectedScreenStateKey)
 
-                        ScreenDisposableEffectStore.dispose(screenKey)
+                        ScreenDisposableEffectStore.dispose(unexpectedScreenStateKey)
 
-                        stateHolder.removeState(screenKey)
+                        stateHolder.removeState(unexpectedScreenStateKey)
 
-                        navigator.disassociateStateKey(screenKey)
+                        navigator.disassociateScreenStateKey(unexpectedScreenStateKey)
                     }
 
                     navigator.clearEvent()
                 }
 
-                screenCandidatesToDispose.value = emptySet()
+                unexpectedScreenStateKeysQueue = emptySet()
             }
         }
 
@@ -145,27 +153,29 @@ public fun CurrentScreenNoTransitions(
 public fun CurrentScreenNoTransitionsDisposable(navigator: Navigator) {
     val stateHolder = LocalNavigatorStateHolder.currentOrThrow
 
-    val currentScreens = navigator.items.map { it.key }
+    val oldScreenStateKeys = remember(navigator.items, navigator.key) {
+        navigator.items.map { "${it.key}:${navigator.key}" }
+    }
 
-    DisposableEffect(currentScreens) {
+    DisposableEffect(oldScreenStateKeys) {
         onDispose {
-            val newScreenKeys = navigator.items.map { it.key }
+            val currentScreenStateKeys = navigator.items.map { "${it.key}:${navigator.key}" }
 
             if (!navigator.lastEvent.isDisposableEvent()) {
                 return@onDispose
             }
 
-            val destroyedScreenKeys =
-                currentScreens.filter { it !in newScreenKeys }
+            val unexpectedScreenStateKeys =
+                oldScreenStateKeys.filter { it !in currentScreenStateKeys }
 
-            for (screenKey in destroyedScreenKeys) {
-                ScreenModelStore.dispose(screenKey)
+            for (unexpectedScreenStateKey in unexpectedScreenStateKeys) {
+                ScreenModelStore.dispose(unexpectedScreenStateKey)
 
-                ScreenDisposableEffectStore.dispose(screenKey)
+                ScreenDisposableEffectStore.dispose(unexpectedScreenStateKey)
 
-                stateHolder.removeState(screenKey)
+                stateHolder.removeState(unexpectedScreenStateKey)
 
-                navigator.disassociateStateKey(screenKey)
+                navigator.disassociateScreenStateKey(unexpectedScreenStateKey)
             }
 
             navigator.clearEvent()
@@ -184,11 +194,12 @@ public fun <T : Screen> T.render(content: @Composable (T) -> Unit = { it.Content
     val stateHolder = LocalNavigatorStateHolder.currentOrThrow
     val navigator = LocalNavigator.currentOrThrow
 
-    navigator.associateStateKey(key)
+    val screenStateKey = "${key}:${navigator.key}"
+    navigator.associateScreenStateKey(screenStateKey)
 
-    stateHolder.SaveableStateProvider(key) {
+    stateHolder.SaveableStateProvider(screenStateKey) {
         CompositionLocalProvider(
-            LocalScreenKey provides key
+            LocalScreenStateKey provides screenStateKey
         ) {
             content(this)
         }
@@ -198,7 +209,7 @@ public fun <T : Screen> T.render(content: @Composable (T) -> Unit = { it.Content
 /**
  * Just an utility saver for the screens that should be disposed during a transition.
  */
-private fun screenCandidatesToDisposeSaver(): Saver<MutableState<Set<Screen>>, List<Screen>> {
+private fun unexpectedScreenStateKeysQueueSaver(): Saver<MutableState<Set<String>>, List<String>> {
     return Saver(
         save = { it.value.toList() },
         restore = { mutableStateOf(it.toSet()) }

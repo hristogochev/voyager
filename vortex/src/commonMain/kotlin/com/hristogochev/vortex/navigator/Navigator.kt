@@ -45,7 +45,7 @@ private fun LocalNavigatorStateHolderProvider(content: @Composable () -> Unit) {
 public val LocalNavigator: ProvidableCompositionLocal<Navigator?> =
     staticCompositionLocalOf { null }
 
-public val LocalScreenKey: ProvidableCompositionLocal<String?> =
+public val LocalScreenStateKey: ProvidableCompositionLocal<String?> =
     staticCompositionLocalOf { null }
 
 @Composable
@@ -101,7 +101,7 @@ public fun Navigator(
 
         val navigatorUpdatedState by rememberUpdatedState(navigator)
 
-        if (LocalScreenKey.current != null) {
+        if (LocalScreenStateKey.current != null) {
             ScreenDisposableEffect {
                 onDispose {
                     val screenStateKeys = navigatorUpdatedState.getAllScreenStateKeys()
@@ -114,7 +114,7 @@ public fun Navigator(
 
                         stateHolder.removeState(screenStateKey)
 
-                        navigatorUpdatedState.disassociateStateKey(screenStateKey)
+                        navigatorUpdatedState.disassociateScreenStateKey(screenStateKey)
                     }
                     ScreenModelStore.dispose(navigatorUpdatedState.key)
 
@@ -134,7 +134,7 @@ public fun Navigator(
 
                         stateHolder.removeState(screenStateKey)
 
-                        navigatorUpdatedState.disassociateStateKey(screenStateKey)
+                        navigatorUpdatedState.disassociateScreenStateKey(screenStateKey)
                     }
                     ScreenModelStore.dispose(navigatorUpdatedState.key)
 
@@ -164,12 +164,12 @@ public class Navigator internal constructor(
 
     public fun level(): Int = parent?.level()?.inc() ?: 0
 
-    public fun associateStateKey(screenKey: String) {
-        screenStateKeys += screenKey
+    public fun associateScreenStateKey(screenStateKey: String) {
+        screenStateKeys += screenStateKey
     }
 
-    public fun disassociateStateKey(screenKey: String) {
-        screenStateKeys -= screenKey
+    public fun disassociateScreenStateKey(screenStateKey: String) {
+        screenStateKeys -= screenStateKey
     }
 
     public fun getAllScreenStateKeys(): Set<String> {

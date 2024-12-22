@@ -1,6 +1,7 @@
 package com.hristogochev.vortex.sample.screenModel
 
 import com.hristogochev.vortex.model.ScreenModel
+import com.hristogochev.vortex.model.screenModelScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -8,7 +9,7 @@ import kotlinx.coroutines.launch
 
 class DetailsScreenModel(
     val index: Int,
-) : ScreenModel() {
+) : ScreenModel {
 
     private val mutableState = MutableStateFlow<State>(State.Loading)
     val state = mutableState.asStateFlow()
@@ -26,7 +27,6 @@ class DetailsScreenModel(
     }
 
     override fun onDispose() {
-        super.onDispose()
         println("ScreenModel: dispose details")
     }
 }

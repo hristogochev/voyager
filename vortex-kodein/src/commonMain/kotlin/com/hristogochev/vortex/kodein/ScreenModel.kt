@@ -5,20 +5,19 @@ import com.hristogochev.vortex.model.ScreenModel
 import com.hristogochev.vortex.model.rememberNavigatorScreenModel
 import com.hristogochev.vortex.model.rememberScreenModel
 import com.hristogochev.vortex.navigator.Navigator
-import com.hristogochev.vortex.screen.Screen
 import org.kodein.di.compose.localDI
 import org.kodein.di.direct
 import org.kodein.di.provider
 
 @Composable
-public inline fun <reified T : ScreenModel> Screen.rememberScreenModel(
+public inline fun <reified T : ScreenModel> rememberScreenModel(
     tag: Any? = null,
 ): T = with(localDI()) {
     rememberScreenModel(tag = tag?.toString()) { direct.provider<T>(tag)() }
 }
 
 @Composable
-public inline fun <reified A : Any, reified T : ScreenModel> Screen.rememberScreenModel(
+public inline fun <reified A : Any, reified T : ScreenModel> rememberScreenModel(
     tag: Any? = null,
     arg: A,
 ): T = with(localDI()) {

@@ -8,6 +8,7 @@ import com.hristogochev.vortex.util.randomUuid
 public interface Screen : Serializable {
 
     public val key: String
+        get() = name()
 
     public val onAppear: ScreenTransition?
         get() = null
@@ -20,7 +21,8 @@ public interface Screen : Serializable {
 }
 
 public fun Screen.name(): String {
-    return this::class.multiplatformName ?: error("Attempted to get the name of a local or anonymous screen")
+    return this::class.multiplatformName
+        ?: error("Attempted to get the name of a local or anonymous screen")
 }
 
 public fun uniqueScreenKey(): String {

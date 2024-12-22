@@ -6,7 +6,7 @@ import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
-import com.hristogochev.vortex.navigator.LocalScreenKey
+import com.hristogochev.vortex.navigator.LocalScreenStateKey
 import com.hristogochev.vortex.util.currentOrThrow
 import com.hristogochev.vortex.util.randomUuid
 
@@ -23,7 +23,7 @@ public fun ScreenDisposableEffect(
     key1: Any? = null,
     effect: ScreenDisposableEffectScope.() -> ScreenDisposableEffectResult,
 ) {
-    val screenKey = LocalScreenKey.currentOrThrow
+    val screenStateKey = LocalScreenStateKey.currentOrThrow
 
     val effectKey = rememberSaveable { randomUuid() }
 
@@ -35,11 +35,11 @@ public fun ScreenDisposableEffect(
 
     LaunchedEffect(set) {
         ScreenDisposableEffectStore.store(
-            screenKey = screenKey,
+            screenStateKey = screenStateKey,
             effectKey = effectKey,
             effect = effect,
             keys = set,
-            key1Changed = {
+            keysChanged = {
                 it != set
             }
         )
@@ -58,7 +58,7 @@ public fun ScreenDisposableEffect(
     vararg keys: Any?,
     effect: ScreenDisposableEffectScope.() -> ScreenDisposableEffectResult,
 ) {
-    val screenKey = LocalScreenKey.currentOrThrow
+    val screenStateKey = LocalScreenStateKey.currentOrThrow
 
     val effectKey = rememberSaveable { randomUuid() }
 
@@ -70,11 +70,11 @@ public fun ScreenDisposableEffect(
 
     LaunchedEffect(set) {
         ScreenDisposableEffectStore.store(
-            screenKey = screenKey,
+            screenStateKey = screenStateKey,
             effectKey = effectKey,
             effect = effect,
             keys = set,
-            key1Changed = {
+            keysChanged = {
                 it != set
             }
         )

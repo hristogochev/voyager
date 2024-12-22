@@ -33,14 +33,13 @@ private val colors = listOf(
 
 class BaseSampleScreenModel(
     val index: Int,
-) : ScreenModel() {
+) : ScreenModel {
 
     init {
         println("Init BaseSampleScreenModel $index")
     }
 
     override fun onDispose() {
-        super.onDispose()
         println("Disposing BaseSampleScreenModel $index")
     }
 }
