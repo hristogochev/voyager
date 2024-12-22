@@ -3,7 +3,6 @@ package com.hristogochev.vortex.screen
 import androidx.compose.animation.ContentTransform
 import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
-import androidx.compose.animation.SizeTransform
 import androidx.compose.animation.togetherWith
 import com.hristogochev.vortex.util.Serializable
 
