@@ -20,7 +20,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
-import com.hristogochev.vortex.navigator.CurrentTab
+import com.hristogochev.vortex.tab.CurrentTab
 import com.hristogochev.vortex.navigator.LocalNavigator
 import com.hristogochev.vortex.navigator.Navigator
 import com.hristogochev.vortex.sample.tabNavigation.tabs.FavoritesTab

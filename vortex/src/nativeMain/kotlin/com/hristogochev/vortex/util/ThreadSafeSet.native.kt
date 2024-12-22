@@ -10,6 +10,6 @@ internal class NativeThreadSafeSet<T>(
     syncObject: SynchronizedObject,
     delegate: MutableSet<T>,
 ) : MutableSet<T>, ThreadSafeSet<T>, ThreadSafeMutableCollection<T>(syncObject, delegate) {
-    public constructor() : this(delegate = mutableSetOf())
-    public constructor(delegate: MutableSet<T>) : this(SynchronizedObject(), delegate)
+    constructor() : this(delegate = mutableSetOf())
+    constructor(delegate: MutableSet<T>) : this(SynchronizedObject(), delegate)
 }

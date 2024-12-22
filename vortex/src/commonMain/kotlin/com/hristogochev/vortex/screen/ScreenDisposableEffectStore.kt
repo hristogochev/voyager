@@ -17,13 +17,13 @@ internal object ScreenDisposableEffectStore {
      * Schedule a disposable effect for a screen in the current composition
      */
     fun store(
-        screenIdentifier: String,
+        screenKey: String,
         effectKey: String,
         keys: Set<Any>,
         key1Changed: (Set<Any>) -> Boolean,
         effect: ScreenDisposableEffectScope.() -> ScreenDisposableEffectResult,
     ) {
-        val disposableEffects = scheduledScreenDisposals.getOrPut(screenIdentifier) {
+        val disposableEffects = scheduledScreenDisposals.getOrPut(screenKey) {
             ThreadSafeSet(emptySet())
         }
 
@@ -59,8 +59,8 @@ internal object ScreenDisposableEffectStore {
     }
 
 
-    fun dispose(screenIdentifier: String) {
-        val screenDisposables = scheduledScreenDisposals.remove(screenIdentifier) ?: return
+    fun dispose(screenKey: String) {
+        val screenDisposables = scheduledScreenDisposals.remove(screenKey) ?: return
 
         val effects = screenDisposables.sortedBy { it.registerOrderIndex }.reversed()
 

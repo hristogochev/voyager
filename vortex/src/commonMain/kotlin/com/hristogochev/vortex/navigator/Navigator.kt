@@ -12,6 +12,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.saveable.rememberSaveableStateHolder
 import androidx.compose.runtime.staticCompositionLocalOf
 import com.hristogochev.vortex.model.ScreenModelStore
+import com.hristogochev.vortex.screen.CurrentScreen
 import com.hristogochev.vortex.screen.Screen
 import com.hristogochev.vortex.screen.ScreenDisposableEffect
 import com.hristogochev.vortex.screen.ScreenDisposableEffectStore
@@ -44,7 +45,7 @@ private fun LocalNavigatorStateHolderProvider(content: @Composable () -> Unit) {
 public val LocalNavigator: ProvidableCompositionLocal<Navigator?> =
     staticCompositionLocalOf { null }
 
-public val LocalScreenIdentifier: ProvidableCompositionLocal<String?> =
+public val LocalScreenKey: ProvidableCompositionLocal<String?> =
     staticCompositionLocalOf { null }
 
 @Composable
@@ -79,7 +80,7 @@ public fun Navigator(
                     NavigatorSavable(
                         navigator.key,
                         navigator.items.toList(),
-                        navigator.getAllScreenIdentifiers().toList()
+                        navigator.getAllScreenStateKeys().toList()
                     )
                 },
                 restore = { saved ->
@@ -87,7 +88,7 @@ public fun Navigator(
                         saved.screens,
                         saved.key,
                         parentUpdatedState,
-                        screenIdentifiers = ThreadSafeSet(saved.savedStates)
+                        screenStateKeys = ThreadSafeSet(saved.savedStates)
                     )
                 }
             )
@@ -100,20 +101,20 @@ public fun Navigator(
 
         val navigatorUpdatedState by rememberUpdatedState(navigator)
 
-        if (LocalScreenIdentifier.current != null) {
+        if (LocalScreenKey.current != null) {
             ScreenDisposableEffect {
                 onDispose {
-                    val screenIdentifiers = navigatorUpdatedState.getAllScreenIdentifiers()
+                    val screenStateKeys = navigatorUpdatedState.getAllScreenStateKeys()
 
-                    for (screenIdentifier in screenIdentifiers) {
+                    for (screenStateKey in screenStateKeys) {
 
-                        ScreenModelStore.dispose(screenIdentifier)
+                        ScreenModelStore.dispose(screenStateKey)
 
-                        ScreenDisposableEffectStore.dispose(screenIdentifier)
+                        ScreenDisposableEffectStore.dispose(screenStateKey)
 
-                        stateHolder.removeState(screenIdentifier)
+                        stateHolder.removeState(screenStateKey)
 
-                        navigatorUpdatedState.disassociateStateKey(screenIdentifier)
+                        navigatorUpdatedState.disassociateStateKey(screenStateKey)
                     }
                     ScreenModelStore.dispose(navigatorUpdatedState.key)
 
@@ -123,17 +124,17 @@ public fun Navigator(
         } else {
             DisposableEffectUnlessChangingConfiguration(Unit) {
                 onDispose {
-                    val screenIdentifiers = navigatorUpdatedState.getAllScreenIdentifiers()
+                    val screenStateKeys = navigatorUpdatedState.getAllScreenStateKeys()
 
-                    for (screenIdentifier in screenIdentifiers) {
+                    for (screenStateKey in screenStateKeys) {
 
-                        ScreenModelStore.dispose(screenIdentifier)
+                        ScreenModelStore.dispose(screenStateKey)
 
-                        ScreenDisposableEffectStore.dispose(screenIdentifier)
+                        ScreenDisposableEffectStore.dispose(screenStateKey)
 
-                        stateHolder.removeState(screenIdentifier)
+                        stateHolder.removeState(screenStateKey)
 
-                        navigatorUpdatedState.disassociateStateKey(screenIdentifier)
+                        navigatorUpdatedState.disassociateStateKey(screenStateKey)
                     }
                     ScreenModelStore.dispose(navigatorUpdatedState.key)
 
@@ -149,7 +150,6 @@ public fun Navigator(
         CompositionLocalProvider(
             LocalNavigator provides navigator
         ) {
-
             content(navigator)
         }
     }
@@ -159,21 +159,21 @@ public class Navigator internal constructor(
     initialScreens: List<Screen>,
     public val key: String,
     public val parent: Navigator? = null,
-    private val screenIdentifiers: ThreadSafeSet<String>,
+    private val screenStateKeys: ThreadSafeSet<String>,
 ) : Stack<Screen> by initialScreens.toMutableStateStack(minSize = 1) {
 
     public fun level(): Int = parent?.level()?.inc() ?: 0
 
-    public fun associateStateKey(screenIdentifier: String) {
-        screenIdentifiers += screenIdentifier
+    public fun associateStateKey(screenKey: String) {
+        screenStateKeys += screenKey
     }
 
-    public fun disassociateStateKey(screenIdentifier: String) {
-        screenIdentifiers -= screenIdentifier
+    public fun disassociateStateKey(screenKey: String) {
+        screenStateKeys -= screenKey
     }
 
-    public fun getAllScreenIdentifiers(): Set<String> {
-        return this.screenIdentifiers.toSet()
+    public fun getAllScreenStateKeys(): Set<String> {
+        return this.screenStateKeys.toSet()
     }
 
     public fun popUntilRoot() {

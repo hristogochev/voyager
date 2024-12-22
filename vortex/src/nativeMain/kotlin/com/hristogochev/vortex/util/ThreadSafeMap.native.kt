@@ -11,7 +11,7 @@ internal actual fun <K, V> getThreadSafeMap(): ThreadSafeMap<K, V> {
 internal class NativeThreadSafeMap<K, V>(
     private val delegate: MutableMap<K, V>,
 ) : MutableMap<K, V>, ThreadSafeMap<K, V> {
-    public constructor() : this(delegate = mutableMapOf())
+    constructor() : this(delegate = mutableMapOf())
 
     private val syncObject = SynchronizedObject()
 

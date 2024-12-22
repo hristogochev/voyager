@@ -21,13 +21,13 @@ internal object ScreenModelStore {
     /**
      * Disposes of all screen models for a screen/navigator
      */
-    fun dispose(identifier: String) {
+    fun dispose(holderKey: String) {
         // Creates a copy of all screen model keys
-        // Finds the ones starting with the screen/navigator identifier
+        // Finds the ones starting with the holder key
         // Then disposes of all screen models with the keys
         screenModels.keys.toSet()
             .asSequence()
-            .filter { it.startsWith(identifier) }
+            .filter { it.startsWith(holderKey) }
             .forEach { key ->
                 screenModels[key]?.onDispose()
                 screenModels -= key

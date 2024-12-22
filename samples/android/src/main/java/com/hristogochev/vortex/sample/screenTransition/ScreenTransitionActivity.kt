@@ -16,7 +16,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.hristogochev.vortex.navigator.CurrentScreen
+import com.hristogochev.vortex.screen.CurrentScreen
 import com.hristogochev.vortex.navigator.Navigator
 import com.hristogochev.vortex.transitions.slideTransition
 import kotlin.random.Random

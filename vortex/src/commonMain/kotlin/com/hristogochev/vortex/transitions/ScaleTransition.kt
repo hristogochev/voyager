@@ -9,7 +9,6 @@ import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.spring
 import androidx.compose.animation.scaleIn
 import androidx.compose.animation.scaleOut
-import androidx.compose.animation.togetherWith
 import com.hristogochev.vortex.navigator.Navigator
 import com.hristogochev.vortex.screen.Screen
 import com.hristogochev.vortex.screen.ScreenTransition

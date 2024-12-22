@@ -1,4 +1,4 @@
-package com.hristogochev.vortex.navigator
+package com.hristogochev.vortex.tab
 
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedContentTransitionScope
@@ -12,8 +12,8 @@ import androidx.compose.animation.core.tween
 import androidx.compose.animation.togetherWith
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.hristogochev.vortex.screen.Screen
-import com.hristogochev.vortex.tab.Tab
+import com.hristogochev.vortex.navigator.Navigator
+import com.hristogochev.vortex.screen.render
 
 /**
  *  Displays the current tab of a [Navigator].
@@ -39,7 +39,7 @@ public fun CurrentTab(
         modifier = modifier
     ) { tab ->
         tab.render {
-            content(it as Tab)
+            content(it)
         }
     }
 }

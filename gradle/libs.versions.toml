@@ -27,7 +27,6 @@ koin-compose = { module = "io.insert-koin:koin-compose", version.ref = "koin" }
 koin = { module = "io.insert-koin:koin-androidx-compose", version.ref = "koin" }
 compose-ui = { module = "androidx.compose.ui:ui", version.ref = "compose" }
 compose-material3 = { module = "androidx.compose.material3:material3", version.ref = "material3" }
-compose-materialIconsExtended = { module = "androidx.compose.material:material-icons-extended", version.ref = "compose" }
 
 [plugins]
 androidLibrary = { id = "com.android.library", version.ref = "agp" }
