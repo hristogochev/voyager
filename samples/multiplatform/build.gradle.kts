@@ -2,53 +2,52 @@ import org.jetbrains.compose.desktop.application.dsl.TargetFormat.Deb
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat.Dmg
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat.Msi
 import org.jetbrains.compose.desktop.application.tasks.AbstractNativeMacApplicationPackageTask
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
-import org.jetbrains.kotlin.gradle.targets.js.dsl.ExperimentalWasmDsl
+import java.util.Locale
 
 plugins {
-    kotlin("multiplatform")
-    id("com.android.application")
-    id("org.jetbrains.compose")
+    alias(libs.plugins.androidApplication)
+    alias(libs.plugins.kotlinMultiplatform)
+    alias(libs.plugins.composeCompiler)
+    alias(libs.plugins.composeMultiplatform)
 }
 
-kotlin {
-    @OptIn(ExperimentalWasmDsl::class)
-    wasmJs {
-        moduleName = "composeApp"
-        browser {
-            commonWebpackConfig {
-                outputFileName = "composeApp.js"
-            }
-        }
-        binaries.executable()
-    }
-}
-
-setupModuleForComposeMultiplatform(
-    fullyMultiplatform = true,
-    withKotlinExplicitMode = false
-)
 
 android {
-    namespace = "cafe.adriel.voyager.sample.multiplatform"
+//    kotlinOptions {
+//        jvmTarget = "11"
+//    }
+    namespace = "com.hristogochev.vortex.sample.multiplatform"
+    compileSdk = libs.versions.android.compileSdk.get().toInt()
+
+    defaultConfig {
+        applicationId = "com.hristogochev.vortex.sample.multiplatform"
+        minSdk = libs.versions.android.minSdk.get().toInt()
+    }
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
+    }
 }
 
+
+
+
 kotlin {
-    val macOsConfiguation: KotlinNativeTarget.() -> Unit = {
-        binaries {
-            executable {
-                entryPoint = "main"
-                freeCompilerArgs += listOf(
-                    "-linker-option",
-                    "-framework",
-                    "-linker-option",
-                    "Metal"
-                )
-            }
+
+    // Android
+    androidTarget {
+        compilerOptions {
+            jvmTarget.set(JvmTarget.JVM_11)
         }
     }
-    macosX64(macOsConfiguation)
-    macosArm64(macOsConfiguation)
+
+    // Desktop
+    jvm("desktop")
+
+    // iOS
     listOf(
         iosX64(),
         iosArm64(),
@@ -60,24 +59,45 @@ kotlin {
         }
     }
 
+    // Wasm
+    @OptIn(org.jetbrains.kotlin.gradle.ExperimentalWasmDsl::class)
+    wasmJs {
+        browser()
+        binaries.executable()
+    }
+
+    // JS
     js(IR) {
         browser()
         binaries.executable()
     }
 
+    // Native Macos experimental
+    val macOsConfiguration: KotlinNativeTarget.() -> Unit = {
+        binaries {
+            executable {
+                entryPoint = "main"
+                freeCompilerArgs += listOf(
+                    "-linker-option", "-framework", "-linker-option", "Metal",
+                )
+            }
+        }
+    }
+    macosX64(macOsConfiguration)
+    macosArm64(macOsConfiguration)
+
     sourceSets {
         commonMain.dependencies {
-            implementation(compose.material)
+            implementation(compose.material3)
             implementation(compose.runtime)
 
-            implementation(projects.voyagerCore)
-            implementation(projects.voyagerNavigator)
-            implementation(libs.coroutines.core)
+            implementation(project(":vortex"))
         }
 
         androidMain.dependencies {
-            implementation(libs.appCompat)
             implementation(libs.compose.activity)
+            implementation(libs.compose.ui)
+            implementation(libs.compose.material3)
         }
 
         val desktopMain by getting {
@@ -90,13 +110,13 @@ kotlin {
 
 android {
     defaultConfig {
-        applicationId = "cafe.adriel.voyager.sample.multiplatform"
+        applicationId = "com.hristogochev.vortex.sample.multiplatform"
     }
 }
 
 compose.desktop {
     application {
-        mainClass = "cafe.adriel.voyager.sample.multiplatform.AppKt"
+        mainClass = "com.hristogochev.vortex.sample.multiplatform.AppKt"
         nativeDistributions {
             targetFormats(Dmg, Msi, Deb)
             packageName = "jvm"
@@ -105,8 +125,10 @@ compose.desktop {
     }
 }
 
+
+// Native Macos experimental
 compose.desktop.nativeApplication {
-    targets(kotlin.targets.getByName("macosX64"))
+    targets(kotlin.targets.getByName("macosX64"), kotlin.targets.getByName("macosArm64"))
     distributions {
         targetFormats(Dmg)
         packageName = "MultiplatformSample"
@@ -114,27 +136,42 @@ compose.desktop.nativeApplication {
     }
 }
 
+
 afterEvaluate {
     val baseTask = "createDistributableNative"
-    listOf("debug", "release").forEach {
-        val createAppTaskName = baseTask + it.capitalize() + "macosX64".capitalize()
+    val architectures = listOf("macosX64", "macosArm64")
+    val buildTypes = listOf("debug", "release")
 
-        val createAppTask = tasks.findByName(createAppTaskName) as? AbstractNativeMacApplicationPackageTask?
-            ?: return@forEach
+    architectures.forEach { architecture ->
+        buildTypes.forEach buildTypeForEach@{ buildType ->
+            val createAppTaskName = baseTask + buildType.capitalize() + architecture.capitalize()
 
-        val destinationDir = createAppTask.destinationDir.get().asFile
-        val packageName = createAppTask.packageName.get()
+            val createAppTask =
+                tasks.findByName(createAppTaskName) as? AbstractNativeMacApplicationPackageTask?
+                    ?: return@buildTypeForEach
 
-        tasks.create("runNative" + it.capitalize()) {
-            group = createAppTask.group
-            dependsOn(createAppTaskName)
-            doLast {
-                ProcessBuilder("open", destinationDir.absolutePath + "/" + packageName + ".app").start().waitFor()
+            val destinationDir = createAppTask.destinationDir.get().asFile
+            val packageName = createAppTask.packageName.get()
+
+            tasks.create("runNative${architecture.capitalize()}${buildType.capitalize()}") {
+                group = createAppTask.group
+                dependsOn(createAppTaskName)
+                doLast {
+                    ProcessBuilder(
+                        "open",
+                        destinationDir.absolutePath + "/" + packageName + ".app"
+                    ).start().waitFor()
+                }
             }
         }
     }
 }
 
-compose.experimental {
-    web.application {}
+private fun String.capitalize(): String {
+    return replaceFirstChar {
+        if (it.isLowerCase())
+            it.titlecase(Locale.getDefault())
+        else it.toString()
+    }
 }
+

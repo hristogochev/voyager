@@ -73,7 +73,7 @@ nav:
       - 'RxJava integration': screenmodel/rxjava-integration.md
       - 'LiveData integration': screenmodel/livedata-integration.md
       - 'Hilt integration': screenmodel/hilt-integration.md
-      - 'Koin integration': screenmodel/koin-integration.md
+      - 'Koin integration': screenmodel/kodein-integration.md
       - 'Kodein integration': screenmodel/kodein-integration.md
   - 'Android ViewModel': android-viewmodel/index.md
   - 'ViewModel KMP': android-viewmodel/viewmodel-kmp.md

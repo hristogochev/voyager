@@ -1,9 +1,14 @@
-/.idea
-/local.properties
-/build
-/captures
-.DS_Store
-.externalNativeBuild
-.gradle
 *.iml
-*.focus
+.gradle
+.idea
+.DS_Store
+build
+captures
+.externalNativeBuild
+.cxx
+local.properties
+xcuserdata
+.kotlin
+#So we don't accidentally commit our private keys
+*.gpg
+kotlin-js-store

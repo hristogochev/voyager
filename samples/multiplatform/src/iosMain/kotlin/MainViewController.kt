@@ -1,4 +1,4 @@
 import androidx.compose.ui.window.ComposeUIViewController
-import cafe.adriel.voyager.sample.multiplatform.SampleApplication
+import com.hristogochev.vortex.sample.multiplatform.SampleApplication
 
 fun MainViewController() = ComposeUIViewController { SampleApplication() }

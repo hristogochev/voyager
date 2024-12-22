@@ -1,19 +1,32 @@
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
-dependencyResolutionManagement {
-    // repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+
+pluginManagement {
     repositories {
         google()
         mavenCentral()
-        maven(url = "https://maven.pkg.jetbrains.space/public/p/compose/dev" )
+        gradlePluginPortal()
     }
 }
 
-plugins {
-    id("com.dropbox.focus") version "0.4.0"
+dependencyResolutionManagement {
+    repositories {
+        google()
+        mavenCentral()
+    }
 }
 
-configure<com.dropbox.focus.FocusExtension> {
-    allSettingsFileName.set("includes.gradle.kts")
-    focusFileName.set(".focus")
-}
+//rootProject.name = "Vortex"
+include(":vortex")
+include(":vortex-koin")
+include(":vortex-kodein")
+include(":samples:android")
+include(":samples:multiplatform")
+//include( ":samples:android",
+//    ":samples:multiplatform",
+//
+//    ":samples:multi-module:app",
+//    ":samples:multi-module:navigation",
+//    ":samples:multi-module:feature-home",
+//    ":samples:multi-module:feature-posts",)
+

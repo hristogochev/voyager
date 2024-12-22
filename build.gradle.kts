@@ -1,44 +1,15 @@
-buildscript {
-    repositories {
-        mavenCentral()
-        google()
-        gradlePluginPortal()
-        maven(url = "https://maven.pkg.jetbrains.space/public/p/compose/dev" )
-    }
-
-    dependencies {
-        classpath(libs.plugin.hilt)
-        classpath(libs.plugin.ktlint)
-        classpath(libs.plugin.maven)
-        classpath(libs.plugin.multiplatform.compose)
-        classpath(libs.plugin.atomicfu)
-    }
-}
-
 plugins {
-    alias(libs.plugins.binaryCompatibilityValidator)
+    alias(libs.plugins.kotlinAndroid) apply false
+    alias(libs.plugins.androidApplication) apply false
+    alias(libs.plugins.androidLibrary) apply false
+    alias(libs.plugins.kotlinMultiplatform) apply  false
+    alias(libs.plugins.vanniktech.mavenPublish) apply false
+    alias(libs.plugins.composeCompiler) apply false
+    alias(libs.plugins.composeMultiplatform) apply false
 }
 
-subprojects {
-    apply(plugin = "org.jlleitschuh.gradle.ktlint")
-
-    configure<org.jlleitschuh.gradle.ktlint.KtlintExtension> {
-        version.set("0.47.1")
-        disabledRules.set(setOf("filename"))
-    }
+allprojects {
+    group = "com.hristogochev"
+    version = "1.0.0"
 }
 
-apiValidation {
-    ignoredProjects.addAll(listOf(
-        /*samples*/"android",
-        /*samples*/"multiplatform",
-        /*samples/multi-modulo*/"app",
-        /*samples/multi-modulo*/"feature-home",
-        /*samples/multi-modulo*/"feature-posts",
-        /*samples/multi-modulo*/"navigation",
-    ))
-    nonPublicMarkers.addAll(listOf(
-        "cafe.adriel.voyager.core.annotation.InternalVoyagerApi",
-        "cafe.adriel.voyager.core.annotation.ExperimentalVoyagerApi"
-    ))
-}

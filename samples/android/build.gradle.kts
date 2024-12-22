@@ -1,53 +1,40 @@
 plugins {
-    id("com.android.application")
-    kotlin("android")
-    kotlin("kapt")
+    alias(libs.plugins.androidApplication)
+    alias(libs.plugins.kotlinAndroid)
+    alias(libs.plugins.composeCompiler)
+    alias(libs.plugins.composeMultiplatform)
     id("kotlin-parcelize")
-    id("dagger.hilt.android.plugin")
 }
 
-setupModuleForAndroidxCompose(
-    withKotlinExplicitMode = false
-)
 
 android {
-    namespace = "cafe.adriel.voyager.sample"
+    kotlinOptions {
+        jvmTarget = "11"
+    }
+    namespace = "com.hristogochev.vortex.sample"
+    compileSdk = libs.versions.android.compileSdk.get().toInt()
+
     defaultConfig {
-        applicationId = "cafe.adriel.voyager.sample"
+        applicationId = "com.hristogochev.vortex.sample"
+        minSdk = libs.versions.android.minSdk.get().toInt()
+    }
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
 }
 
-kapt {
-    correctErrorTypes = true
-}
-
 dependencies {
-    implementation(projects.voyagerScreenmodel)
-    implementation(projects.voyagerNavigator)
-    implementation(projects.voyagerTabNavigator)
-    implementation(projects.voyagerBottomSheetNavigator)
-    implementation(projects.voyagerTransitions)
-    implementation(projects.voyagerHilt)
-    implementation(projects.voyagerKodein)
-    implementation(projects.voyagerKoin)
-    implementation(projects.voyagerRxjava)
-    implementation(projects.voyagerLivedata)
+    implementation(project(":vortex"))
+    implementation(project(":vortex-koin"))
+    implementation(project(":vortex-kodein"))
 
     implementation(libs.kodein)
+    implementation(libs.koin.compose)
     implementation(libs.koin)
-    implementation(libs.appCompat)
-    implementation(libs.lifecycle.viewModelKtx)
-    implementation(libs.lifecycle.viewModelCompose)
-    implementation(libs.compose.rxjava)
-    implementation(libs.compose.compiler)
-    implementation(libs.compose.runtime)
-    implementation(libs.compose.runtimeLiveData)
-    implementation(libs.compose.activity)
-    implementation(libs.compose.material)
-    implementation(libs.compose.materialIcons)
-    implementation(libs.compose.animation)
-    implementation(libs.hilt.android)
-    kapt(libs.hilt.compiler)
 
-    debugImplementation(libs.leakCanary)
+    implementation(libs.compose.ui)
+    implementation(libs.compose.material3)
+    implementation(libs.compose.activity)
 }
