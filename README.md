@@ -4,7 +4,8 @@
 [![ktlint](https://img.shields.io/badge/code%20style-%E2%9D%A4-FF4081.svg?style=for-the-badge)](https://ktlint.github.io/)
 [![License MIT](https://img.shields.io/github/license/hristogochev/vortex.svg?style=for-the-badge&color=orange)](LICENSE.md)
 
-<div align="center" style="padding-top: 64px;">
+<div align="center">
+    <br>
     <img height="150" style="padding-bottom: 4px;" src="docs/img/logo_vortex.png" alt="Logo"/>
     <h1>
         <a href="https://io.github.hristogochev/vortex">Vortex</a>: Spin up your Compose Navigation
