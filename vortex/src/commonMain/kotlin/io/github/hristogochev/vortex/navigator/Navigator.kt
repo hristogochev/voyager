@@ -92,8 +92,12 @@ public fun Navigator(
                 },
                 restore = { saved ->
                     val savedKey = saved["key"] as? String ?: error("No saved navigator")
+
+                    @Suppress("UNCHECKED_CAST")
                     val savedScreens =
                         saved["items"] as? List<Screen> ?: error("No saved navigator")
+
+                    @Suppress("UNCHECKED_CAST")
                     val savedScreenStateKeys =
                         saved["screenStateKeys"] as? List<String> ?: error("No saved navigator")
                     Navigator(
