@@ -131,7 +131,7 @@ compose.desktop {
         nativeDistributions {
             targetFormats(Dmg, Msi, Deb)
             packageName = "jvm"
-            packageVersion = "1.0.0"
+            packageVersion = version.toString()
         }
     }
 }
@@ -143,7 +143,7 @@ compose.desktop.nativeApplication {
     distributions {
         targetFormats(Dmg)
         packageName = "MultiplatformSample"
-        packageVersion = "1.0.0"
+        packageVersion = version.toString()
     }
 }
 
