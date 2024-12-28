@@ -1,7 +1,7 @@
 # Kodein integration
 
 !!! success
-    To use the `rememberScreenModel` you should first import `io.github.hristogochev:vortex-kodein` (see [Setup](../setup.md)).
+    To use the `kodeinScreenModel` you should first import `io.github.hristogochev:vortex-kodein` (see [Setup](../setup.md)).
 
 Declare your `ScreenModel`s using the `bindProvider` bind.
 
