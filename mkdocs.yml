@@ -1,88 +1,95 @@
-# pip install mkdocs mkdocs-material
-# mkdocs serve
-# mkdocs gh-deploy
+site_name: Vortex
+site_description: "Stability-focused pragmatic navigation for Compose Multiplatform, fork of Voyager."
+repo_name: Vortex
+repo_url: https://github.com/hristogochev/vortex
 
-site_name: Voyager
-repo_name: Voyager
-repo_url: https://github.com/adrielcafe/voyager
-site_description: 🛸 A pragmatic navigation library for Jetpack Compose"
-remote_branch: gh-pages
-
-#copyright: 'Copyright &copy; '
+nav:
+  - Overview: index.md
+  - Setup: setup.md
+  - Navigation:
+      - Basic navigation: navigation/index.md
+      - Nested navigation: navigation/nested-navigation.md
+      - Bottom sheet navigation: navigation/bottom-sheet-navigation.md
+      - Advanced navigation: navigation/advanced-navigation.md
+      - Tab navigation: navigation/tab-navigation.md
+  - State restoration: state-restoration.md
+  - ScreenModel:
+      - Overview: screenmodel/index.md
+      - Koin integration: screenmodel/koin-integration.md
+      - Kodein integration: screenmodel/kodein-integration.md
+  - Transitions: transitions.md
+  - Lifecycle: lifecycle.md
+  - Deep links: deep-links.md
+  - Stack API: stack-api.md
+  - Work in progress: work-in-progress.md
 
 theme:
-  name: 'material'
-  logo: 'media/icon/logo.png'
-  favicon: 'media/icon/logo.png'
+  name: material
+  logo: 'img/logo_vortex.png'
+  favicon: 'img/favicon.ico'
+  features:
+    - search.suggest
+    - search.highlight
+    - content.tabs.link
+    - content.code.annotation
+    - content.code.copy
   palette:
     - media: '(prefers-color-scheme: light)'
       scheme: default
-      primary: 'cyan'
-      accent: 'deep-purple'
+      primary: 'blue'
+      accent: 'cyan'
       toggle:
         icon: material/weather-night
         name: Switch to dark mode
     - media: '(prefers-color-scheme: dark)'
       scheme: slate
-      primary: 'black'
-      accent: 'blue-grey'
+      primary: 'indigo'
+      accent: 'light-blue'
       toggle:
         icon: material/weather-sunny
         name: Switch to light mode
 
-# Plugins
-plugins:
-  - search
-#  - minify:
-#      minify_html: true
+extra:
+  social:
+    - icon: fontawesome/brands/github-alt
+      link: https://github.com/hristogochev
+
 
 markdown_extensions:
-  - smarty
-  - codehilite:
-      guess_lang: false
-  - footnotes
-  - meta
+
+  # Permalinks on top of pages
   - toc:
       permalink: true
+  # Typography improvement
+  - smarty
+  # Footnotes
+  - footnotes
+  # Meta
+  - meta
+  # Do not attempt to guess what language code blocks are for
+  - codehilite:
+      guess_lang: false
+  # Better understanding of '-'
   - pymdownx.betterem:
       smart_enable: all
+  # Better caret handling
   - pymdownx.caret
+  # Enables syntax highlighting for inline code blocks and adds support for additional formatting options like styling.
   - pymdownx.inlinehilite
+  # Automatically converts URLs, email addresses, and references to clickable links.
   - pymdownx.magiclink
+  # Automatically converts specific symbols or patterns into their typographic equivalents.
   - pymdownx.smartsymbols
+  # Enhances fenced code blocks with support for nested content, custom rendering, and highlighting.
   - pymdownx.superfences
+  # Just emojis
   - pymdownx.emoji
+  # Adds support for collapsible details blocks, useful for hiding content by default.
   - pymdownx.details
+  # Creates tabbed sections for displaying different content options.
   - pymdownx.tabbed:
       alternate_style: true
+  # Enables rendering of Markdown tables.
   - tables
+  # Adds support for admonition blocks, which are callouts boxes for notes, warnings, etc.
   - admonition
-
-nav:
-  - 'Overview': index.md
-  - 'Setup': setup.md
-  - 'Navigation': navigation/index.md
-  - 'Nested navigation': navigation/nested-navigation.md
-  - 'Multi-module navigation': navigation/multi-module-navigation.md
-  - 'Navigation extensions':
-      - 'BottomSheet navigation': navigation/bottomsheet-navigation.md
-      - 'Tab navigation': navigation/tab-navigation.md
-  - 'ScreenModel':
-      - 'Overview': screenmodel/index.md
-      - 'Coroutines integration': screenmodel/coroutines-integration.md
-      - 'RxJava integration': screenmodel/rxjava-integration.md
-      - 'LiveData integration': screenmodel/livedata-integration.md
-      - 'Hilt integration': screenmodel/hilt-integration.md
-      - 'Koin integration': screenmodel/kodein-integration.md
-      - 'Kodein integration': screenmodel/kodein-integration.md
-  - 'Android ViewModel': android-viewmodel/index.md
-  - 'ViewModel KMP': android-viewmodel/viewmodel-kmp.md
-  - 'Stack API': stack-api.md
-  - 'State restoration': state-restoration.md
-  - 'Transitions': transitions-api.md
-  - 'Lifecycle': lifecycle.md
-  - 'Back press': back-press.md
-  - 'Deep links': deep-links.md
-  - 'Migration to 1.0.0': migration-to-1.0.0.md
-  - 'Faq': faq.md
-  - 'Community Projects': community-projects.md

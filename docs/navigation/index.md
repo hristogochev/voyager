@@ -1,16 +1,10 @@
-# Navigation
+# Basic navigation
 
-!!! success
-    To use the `Navigator` you should first import `cafe.adriel.voyager:voyager-navigator` (see [Setup](../setup.md)).
-
-### Screen
-
-On Voyager, screens are just classes with a composable function as the entrypoint. To create one, you should implement the `Screen` interface and override the `Content()` composable function.
-
-You can use `data class` (if you need to send params), `class` (if no param is required).
+To set up basic navigation, simply implement the `Screen` interface for a data class or object.<br>
+The `Content()` function of a `Screen` is used for displaying its contents.
 
 ```kotlin
-class PostListScreen : Screen {
+data object HomeScreen : Screen {
 
     @Composable
     override fun Content() {
@@ -18,7 +12,7 @@ class PostListScreen : Screen {
     }
 }
 
-data class PostDetailsScreen(val postId: Long) : Screen {
+data class DetailsScreen(val id: Long) : Screen {
 
     @Composable
     override fun Content() {
@@ -27,76 +21,55 @@ data class PostDetailsScreen(val postId: Long) : Screen {
 }
 ```
 
-### Navigator
-
-`Navigator` is a composable function deeply integrated with Compose internals. It'll manage the [lifecyle](../lifecycle.md), [back press](../back-press.md), [state restoration](../state-restoration.md) and even [nested navigation](nested-navigation.md) for you.
-
-To start using it, just set the initial `Screen`.
-
-```kotlin
-class SingleActivity : ComponentActivity() {
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        setContent {
-            Navigator(HomeScreen)
-        }
-    }
-}
-```
-
-Use the `LocalNavigator` to navigate to other screens. Take a look at the [Stack API](../stack-api.md) for the available operations.
-
-```kotlin
-class PostListScreen : Screen {
-
-    @Composable
-    override fun Content() {
-        // ...
-    }
-
-    @Composable
-    private fun PostCard(post: Post) {
-        val navigator = LocalNavigator.currentOrThrow
-        
-        Card(
-            modifier = Modifier.clickable { 
-                navigator.push(PostDetailsScreen(post.id))
-                // Also works:
-                // navigator push PostDetailsScreen(post.id)
-                // navigator += PostDetailsScreen(post.id)
-            }
-        ) {
-            // ...
-        }
-    }
-}
-```
-
-If part of your UI is shared between screens, like the `TopAppBar` or `BottomNavigation`, you can easily reuse them with Voyager.
+Then anywhere in your composable logic call `Navigator()`, passing in its initial screens.<br>
+A navigator is used to manage the screens you create.<br>
+You can `push`, `pop` or `replace` screens within it.
 
 ```kotlin
 @Composable
-override fun Content() {
-    Navigator(HomeScreen) { navigator ->
-        Scaffold(
-            topBar = { /* ... */ },
-            content = { CurrentScreen() },
-            bottomBar = { /* ... */ }
-        )
+fun App(){
+    Navigator(HomeScreen)
+}
+
+data object HomeScreen : Screen {
+
+    @Composable
+    override fun Content() {
+        val navigator = LocalNavigator.currentOrThrow
+        
+        Button(
+            onClick = {
+                navigator.push(DetailsScreen(1))
+                // navigator.replace(DetailsScreen(1)) is also possible
+                // "replace" removes the current screen and replaces it with the one specified.
+            }
+        ) {
+            Text(text = "Show details")
+        }
+    }
+}
+data class DetailsScreen(val id: Long) : Screen {
+
+    @Composable
+    override fun Content() {
+        val navigator = LocalNavigator.currentOrThrow
+        
+        Button(
+            onClick = {
+                navigator.pop()
+                // If we invoked "replace" on the current screen with this one instead of pushing, "pop" won't do anything
+            }
+        ) {
+            Text(text = "Go back")
+        }
     }
 }
 ```
 
-{% hint style="warning" %}
-You should use `CurrentScreen()` instead of `navigator.lastItem.Content()`, because it will save the Screen's subtree for you (see [SaveableStateHolder](https://developer.android.com/reference/kotlin/androidx/compose/runtime/saveable/SaveableStateHolder)).
-{% endhint %}
+!!! note "LocalNavigator is a function that returns the navigator that owns the current screen."
 
-### Sample
+!!! info "You can find source code for a working example [here](https://github.com/hristogochev/vortex)."
 
-![](../media/assets/basic-nav.gif)
 
-!!! info
-    Source code [here](https://github.com/adrielcafe/voyager/tree/main/samples/android/src/main/java/cafe/adriel/voyager/sample/basicNavigation).
+
 

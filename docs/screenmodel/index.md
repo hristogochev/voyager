@@ -1,28 +1,24 @@
 # ScreenModel
 
-
-
-!!! success
-    The ScreenModel API is a part of the module`cafe.adriel.voyager:voyager-screenmodel` (see [Setup](../setup.md)).
-
-`ScreenModel` is just like a [ViewModel](../android-viewmodel/): designed to store and manage UI-related data in a lifecycle conscious way. It also allows data to survive configuration changes such as screen rotations.
-
-Unlike `ViewModel`, `ScreenModel` is just an interface. It's also Android independent and doesn't requires an `Activity` or `Fragment` to work.
+Vortex provides its own Multiplatform `ViewModel` called `ScreenModel`, which functions in the exact same way.
 
 ```kotlin
 class HomeScreenModel : ScreenModel {
    
-   // Optional
+    init {
+        screenModelScope.launch {
+            // ..
+        }
+    }
+    
+    // Optional
     override fun onDispose() {
         // ...
     }
 }
 ```
 
-!!! info
-    `ScreenModel` is integrated with [Coroutines](coroutines-integration.md), [RxJava](rxjava-integration.md), [LiveData](livedata-integration.md), [Koin](koin-integration.md), [Kodein](kodein-integration.md) and [Hit](hilt-integration.md)!
-
-By design, it's only possible to create a `ScreenModel` instance inside a `Screen`. Call `rememberScreenModel` and provide a factory lambda.
+A `ScreenModel` can be bound to either the `Screen` it's in or a `Navigator`:
 
 ```kotlin
 class HomeScreen : Screen {
@@ -31,43 +27,24 @@ class HomeScreen : Screen {
     override fun Content() {
         val screenModel = rememberScreenModel { HomeScreenModel() }
         // ...
-    }
-}
-```
-
-If you need to have multiple instances of the same `ScreenModel` for the same `Screen`, add a tag to differentiate them.
-
-```kotlin
-val screenModel = rememberScreenModel(tag = "CUSTOM_TAG") { HomeScreenModel() }
-```
-
-### Sample
-
-![](<../media/assets/ezgif.com-gif-maker (1).gif>)
-
-!!! info
-    Source code [here](https://github.com/adrielcafe/voyager/tree/main/samples/android/src/main/java/cafe/adriel/voyager/sample/screenModel).
-
-
-### Navigator scoped ScreenModel
-
-!!! success
-    The`rememberNavigatorScreenModel` are part of the navigator library.
-
-Starting from [`1.0.0rc08`](https://github.com/adrielcafe/voyager/releases/tag/1.0.0-rc08) by using the new Navigator extension called `rememberNavigatorScreenModel` is possible to have a ScreenModel that is shared cross all Screens from a Navigator and when the Navigator leaves the Composition the ScreenModel is disposed.
-
-```kotlin
-class HomeScreen : Screen {
-
-    @Composable
-    override fun Content() {
         val navigator = LocalNavigator.currentOrThrow
-        val screenModel = navigator.rememberNavigatorScreenModel { HomeScreenModel() }
+        val navigatorScreenModel = navigator.rememberNavigatorScreenModel { HomeScreenModel() }
         // ...
     }
 }
 ```
 
-!!! info
-    Each DI library we provide a extension out of the box it is also provided support for Navigator scoped ScreenModel. See [Koin](koin-integration.md), [Kodein](kodein-integration.md) and [Hit](hilt-integration.md)!
+If you need to have multiple instances of the same `ScreenModel` for the same `Screen` or `Navigator`, you can add a tag
+to differentiate them.
+
+```kotlin
+val screenModel = rememberScreenModel(tag = "CUSTOM_TAG") { HomeScreenModel() }
+```
+
+### Desktop Note
+
+!!! note
+    If you are targeting Desktop, you should provide the dependency `org.jetbrains.kotlinx:kotlinx-coroutines-swing`, the `screenModelScope` depends on `Dispatchers.Main` provided by this library on Desktop. We don't include it because this library is incompatible with IntelliJ Plugin, [see](https://youtrack.jetbrains.com/issue/IDEA-285839). If you are targeting Desktop for IntelliJ plugins, this library does not require to be provided.
+
+!!! info "You can find source code for a working example [here](https://github.com/hristogochev/vortex)."
 

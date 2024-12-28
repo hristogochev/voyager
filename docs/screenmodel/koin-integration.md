@@ -1,10 +1,7 @@
 # Koin integration
 
 !!! success
-    To use the `getScreenModel` you should first import `cafe.adriel.voyager:voyager-koin` (see [Setup](../setup.md)).
-
-!!! warning
-    Since [1.1.0-alpha04](https://github.com/adrielcafe/voyager/releases/tag/1.1.0-alpha04) we have rename the `getScreenModel` to `koinScreenModel`, this is a change to follow Koin Compose naming schema. The previous `getScreenModel` is deprecated and will be removed on 1.1.0
+    To use the `koinScreenModel` you should first import `io.github.hristogochev:vortex-koin` (see [Setup](../setup.md)).
 
 Declare your `ScreenModel`s using the `factory` component.
 
@@ -14,7 +11,7 @@ val homeModule = module {
 }
 ```
 
-Call `getScreenModel()` to get a new instance.
+Call `koinScreenModel()` or `koinNavigatorScreenModel()` to get a new instance.
 
 ```kotlin
 class HomeScreen : Screen {
@@ -23,25 +20,12 @@ class HomeScreen : Screen {
     override fun Content() {
         val screenModel = getScreenModel<HomeScreenModel>()
         // ...
-    }
-}
-```
-
-### Sample
-
-!!! info
-    Sample code [here](https://github.com/adrielcafe/voyager/tree/main/samples/android/src/main/java/cafe/adriel/voyager/sample/koinIntegration).
-
-### Navigator scoped ScreenModel
-
-```kotlin
-class HomeScreen : Screen {
-
-    @Composable
-    override fun Content() {
         val navigator = LocalNavigator.currentOrThrow
         val screenModel = navigator.getNavigatorScreenModel<HomeScreenModel>()
         // ...
     }
 }
 ```
+
+!!! info "You can find source code for a working example [here](https://github.com/hristogochev/vortex)."
+

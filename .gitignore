@@ -12,3 +12,4 @@ xcuserdata
 #So we don't accidentally commit our private keys
 *.gpg
 kotlin-js-store
+venv

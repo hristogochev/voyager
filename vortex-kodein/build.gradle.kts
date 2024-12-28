@@ -48,11 +48,14 @@ kotlin {
             implementation(project(":vortex"))
             implementation(libs.kodein)
         }
+        nativeMain.dependencies {
+
+        }
     }
 }
 
 android {
-    namespace = "com.hristogochev.vortex.kodein"
+    namespace = "io.github.hristogochev.vortex.kodein"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
     defaultConfig {
         minSdk = libs.versions.android.minSdk.get().toInt()

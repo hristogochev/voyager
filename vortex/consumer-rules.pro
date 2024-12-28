@@ -1,3 +1,3 @@
--keepclassmembers class * implements com.hristogochev.vortex.screen.Screen {
+-keepclassmembers class * implements io.github.hristogochev.vortex.screen.Screen {
     public getKey();
 }

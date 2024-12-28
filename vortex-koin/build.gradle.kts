@@ -46,11 +46,14 @@ kotlin {
             implementation(project(":vortex"))
             implementation(libs.koin.compose)
         }
+        nativeMain.dependencies {
+            
+        }
     }
 }
 
 android {
-    namespace = "com.hristogochev.vortex.koin"
+    namespace = "io.github.hristogochev.vortex.koin"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
     defaultConfig {
         minSdk = libs.versions.android.minSdk.get().toInt()

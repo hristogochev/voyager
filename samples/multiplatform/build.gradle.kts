@@ -18,11 +18,11 @@ android {
 //    kotlinOptions {
 //        jvmTarget = "11"
 //    }
-    namespace = "com.hristogochev.vortex.sample.multiplatform"
+    namespace = "io.github.hristogochev.vortex.sample.multiplatform"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
 
     defaultConfig {
-        applicationId = "com.hristogochev.vortex.sample.multiplatform"
+        applicationId = "io.github.hristogochev.vortex.sample.multiplatform"
         minSdk = libs.versions.android.minSdk.get().toInt()
     }
 
@@ -110,13 +110,13 @@ kotlin {
 
 android {
     defaultConfig {
-        applicationId = "com.hristogochev.vortex.sample.multiplatform"
+        applicationId = "io.github.hristogochev.vortex.sample.multiplatform"
     }
 }
 
 compose.desktop {
     application {
-        mainClass = "com.hristogochev.vortex.sample.multiplatform.AppKt"
+        mainClass = "io.github.hristogochev.vortex.sample.multiplatform.AppKt"
         nativeDistributions {
             targetFormats(Dmg, Msi, Deb)
             packageName = "jvm"

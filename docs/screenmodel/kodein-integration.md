@@ -1,7 +1,7 @@
 # Kodein integration
 
 !!! success
-    To use the `rememberScreenModel` you should first import `cafe.adriel.voyager:voyager-kodein` (see [Setup](../setup.md)).
+    To use the `rememberScreenModel` you should first import `io.github.hristogochev:vortex-kodein` (see [Setup](../setup.md)).
 
 Declare your `ScreenModel`s using the `bindProvider` bind.
 
@@ -11,7 +11,7 @@ val homeModule = DI.Module(name = "home") {
 }
 ```
 
-Call `rememberScreenModel()` to get a new instance.
+Call `rememberScreenModel()` or `rememberNavigatorScreenModel()` to get a new instance.
 
 ```kotlin
 class HomeScreen : Screen {
@@ -20,25 +20,11 @@ class HomeScreen : Screen {
     override fun Content() {
         val screenModel = rememberScreenModel<HomeScreenModel>()
         // ...
-    }
-}
-```
-
-### Sample
-
-!!! info
-    Sample code [here](https://github.com/adrielcafe/voyager/tree/main/samples/android/src/main/java/cafe/adriel/voyager/sample/kodeinIntegration).
-
-### Navigator scoped ScreenModel
-
-```kotlin
-class HomeScreen : Screen {
-
-    @Composable
-    override fun Content() {
         val navigator = LocalNavigator.currentOrThrow
         val screenModel = navigator.rememberNavigatorScreenModel<HomeScreenModel>()
         // ...
     }
 }
 ```
+
+!!! info "You can find source code for a working example [here](https://github.com/hristogochev/vortex)."

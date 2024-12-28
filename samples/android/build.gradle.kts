@@ -11,11 +11,11 @@ android {
     kotlinOptions {
         jvmTarget = "11"
     }
-    namespace = "com.hristogochev.vortex.sample"
+    namespace = "io.github.hristogochev.vortex.sample"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
 
     defaultConfig {
-        applicationId = "com.hristogochev.vortex.sample"
+        applicationId = "io.github.hristogochev.vortex.sample"
         minSdk = libs.versions.android.minSdk.get().toInt()
     }
 

@@ -65,7 +65,7 @@ kotlin {
 }
 
 android {
-    namespace = "com.hristogochev.vortex"
+    namespace = "io.github.hristogochev.vortex"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
     defaultConfig {
         minSdk = libs.versions.android.minSdk.get().toInt()
@@ -87,7 +87,7 @@ mavenPublishing {
     pom {
         name = "Vortex"
         description =
-            "Minimalistic, stability-focused fork of Voyager: pragmatic navigation library for Jetpack Compose"
+            "Stability-focused Compose Multiplatform Navigation Library, fork of Voyager"
         inceptionYear = "2024"
         url = "https://github.com/hristogochev/vortex/"
         licenses {

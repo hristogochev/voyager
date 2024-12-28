@@ -1,37 +1,33 @@
 # Nested navigation
 
-### Nested Navigators
-
-Going a little further, it's possible to have nested navigators. The `Navigator` has a `level` property (so you can check how deeper your are) and can have a `parent` navigator (if you need to interact with it).
+There should be no issues if you need to set up some sort of nested navigation.
+Any navigator `N` with screen `B` created within screen `A` is `bound` to the lifecycle of screen `A`.
+If screen `A` happens to get disposed navigator `N` and its screen `B` will also get disposed.
 
 ```kotlin
-setContent {
-    Navigator(ScreenA) { navigator0 ->
-        println(navigator.level)
-        // 0
-        println(navigator.parent == null)
-        // true
-        Navigator(ScreenB) { navigator1 ->
-            println(navigator.level)
-            // 1
-            println(navigator.parent == navigator0)
-            // true
-            Navigator(ScreenC) { navigator2 ->
-                println(navigator.level)
-                // 2
-                println(navigator.parent == navigator1)
-                // true
-            }
-        }
+@Composable
+fun App(){
+    Navigator(ScreenA)
+}
+
+data object ScreenA : Screen {
+
+    @Composable
+    override fun Content() {
+        Navigator(ScreenB)
+    }
+}
+
+data object ScreenB : Screen {
+
+    @Composable
+    override fun Content() {
+        // ...
     }
 }
 ```
 
-Another operation is the `popUntilRoot()`, it will recursively pop all screens starting from the leaf navigator until the root one.
+!!! note "You can call LocalNavigator.currentOrThrow.parent to access the navigator of the screen owning the current navigator."
 
-### Sample
+!!! info "You can find source code for a working example [here](https://github.com/hristogochev/vortex)."
 
-![](../media/assets/nested-nav.gif)
-
-!!! info
-    Source code [here](https://github.com/adrielcafe/voyager/tree/main/samples/android/src/main/java/cafe/adriel/voyager/sample/nestedNavigation).

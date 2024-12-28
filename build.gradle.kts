@@ -9,7 +9,7 @@ plugins {
 }
 
 allprojects {
-    group = "com.hristogochev"
-    version = "1.0.0"
+    group = "io.github.hristogochev"
+    version = "0.1.0"
 }
 

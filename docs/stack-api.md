@@ -2,9 +2,9 @@
 
 ### SnapshotStateStack
 
-Voyager is backed by a [SnapshotStateStack](https://github.com/adrielcafe/voyager/blob/main/voyager-core/src/main/java/cafe/adriel/voyager/core/stack/SnapshotStateStack.kt):
+Vortex is backed by a [SnapshotStateStack](https://github.com/hristogochev/vortex/blob/main/vortex/src/main/java/com/hristogochev/vortex/stack/SnapshotStateStack.kt):
 
-* Implementation of [Stack](https://github.com/adrielcafe/voyager/blob/main/voyager-core/src/main/java/cafe/adriel/voyager/core/stack/Stack.kt) that can be observed and snapshot
+* Implementation of [Stack](https://github.com/hristogochev/vortex/blob/main/vortex/src/main/java/com/hristogochev/vortex/stack/Stack.kt) that can be observed and snapshot
 * Internally uses a [SnapshotStateList](https://developer.android.com/reference/kotlin/androidx/compose/runtime/snapshots/SnapshotStateList)
 * State-aware: content change triggers a [recomposition](https://developer.android.com/jetpack/compose/mental-model#recomposition)
 
@@ -46,11 +46,5 @@ The available events are:
 * `Pop`: whenever `pop` and `popAll` are called
 * `Idle`: default event
 
-This is very useful for deciding which [transition](transitions-api) to make.
+!!! info "You can find source code for a working example [here](https://github.com/hristogochev/vortex)."
 
-### Sample
-
-![](media/assets/stack.gif)
-
-!!! info
-    Source code [here](https://github.com/adrielcafe/voyager/tree/main/samples/android/src/main/java/cafe/adriel/voyager/sample/stateStack).
