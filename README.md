@@ -8,6 +8,7 @@
     <br>
     <img height="150" src="docs/img/logo_vortex.png"/>
     <br>
+    <br>
     <a href="https://io.github.hristogochev/vortex">Vortex</a>: Spin up your Compose Navigation
 </h1>
 
@@ -40,18 +41,18 @@ fun App() {
 See the [project website](https://hristogochev.github.io/vortex) for documentation and APIs.
 
 ### **Features**
-- [Supported platforms](setup.md): Android, iOS, Desktop, Wasm, JS
-* [Basic navigation](navigation/index.md)
-* [Nested navigation](navigation/nested-navigation.md)
-* [Bottom sheet navigation](navigation/bottom-sheet-navigation.md)
-* [Advanced navigation](navigation/advanced-navigation.md)
-* [Tab navigation](navigation/tab-navigation.md) (like bottom navigation)
-* [ScreenModel](screenmodel/index.md) (Multiplatform ViewModel)
-* [Transitions](transitions.md) per screen
-* [State restoration](state-restoration.md) after Activity recreation
-* [Callbacks](lifecycle.md) for screen creation and disposal
-* [Deep linking](deep-links.md) support
-* State-aware [Stack API](stack-api.md)
+- [Supported platforms](https://hristogochev.github.io/vortex/setup): Android, iOS, Desktop and Web
+* [Basic navigation](https://hristogochev.github.io/vortex/navigation)
+* [Nested navigation](https://hristogochev.github.io/vortex/navigation/nested-navigation)
+* [Bottom sheet navigation](https://hristogochev.github.io/vortex/navigation/bottom-sheet-navigation)
+* [Advanced navigation](https://hristogochev.github.io/vortex/navigation/advanced-navigation)
+* [Tab navigation](https://hristogochev.github.io/vortex/navigation/tab-navigation) (like bottom navigation)
+* [ScreenModel](https://hristogochev.github.io/vortex/screenmodel) (Multiplatform ViewModel)
+* [Transitions](https://hristogochev.github.io/vortex/transitions) per screen
+* [State restoration](https://hristogochev.github.io/vortex/state-restoration) after Activity recreation
+* [Callbacks](https://hristogochev.github.io/vortex/lifecycle) for screen creation and disposal
+* [Deep linking](https://hristogochev.github.io/vortex/deep-links) support
+* State-aware [Stack API](https://hristogochev.github.io/vortex/stack-api)
 
 ### Differences with Voyager
 
