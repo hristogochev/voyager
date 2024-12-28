@@ -34,7 +34,7 @@ class ScreenTransitionActivity : ComponentActivity() {
     @Composable
     fun Content() {
         Navigator(
-            screen = io.github.hristogochev.vortex.sample.screenTransition.NoCustomAnimationSampleScreen(0),
+            screen = NoCustomAnimationSampleScreen(0),
         ) { navigator ->
             Box(modifier = Modifier.fillMaxSize()) {
                 CurrentScreen(
@@ -56,7 +56,7 @@ class ScreenTransitionActivity : ComponentActivity() {
                     ) {
                         Button(
                             onClick = { navigator.push(
-                                io.github.hristogochev.vortex.sample.screenTransition.FadeAnimationSampleScreen(
+                                FadeAnimationSampleScreen(
                                     navigator.items.size
                                 )
                             ) },
@@ -86,7 +86,7 @@ class ScreenTransitionActivity : ComponentActivity() {
                     ) {
                         Button(
                             onClick = { navigator.push(
-                                io.github.hristogochev.vortex.sample.screenTransition.NoCustomAnimationSampleScreen(
+                                NoCustomAnimationSampleScreen(
                                     navigator.items.size
                                 )
                             ) },
@@ -110,7 +110,7 @@ class ScreenTransitionActivity : ComponentActivity() {
                     ) {
                         Button(
                             onClick = { navigator.replace(
-                                io.github.hristogochev.vortex.sample.screenTransition.NoCustomAnimationSampleScreen(
+                                NoCustomAnimationSampleScreen(
                                     Random.nextInt()
                                 )
                             ) },
@@ -121,7 +121,7 @@ class ScreenTransitionActivity : ComponentActivity() {
 
                         Button(
                             onClick = { navigator.replaceAll(
-                                io.github.hristogochev.vortex.sample.screenTransition.NoCustomAnimationSampleScreen(
+                                NoCustomAnimationSampleScreen(
                                     Random.nextInt()
                                 )
                             ) },

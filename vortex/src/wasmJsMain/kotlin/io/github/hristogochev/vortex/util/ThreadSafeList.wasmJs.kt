@@ -3,13 +3,13 @@ package io.github.hristogochev.vortex.util
 import kotlinx.atomicfu.locks.SynchronizedObject
 import kotlinx.atomicfu.locks.synchronized
 
-internal actual fun <T> getThreadSafeList(): io.github.hristogochev.vortex.util.ThreadSafeList<T> {
+internal actual fun <T> getThreadSafeList(): ThreadSafeList<T> {
     return WasmThreadSafeList()
 }
 
 internal class WasmThreadSafeList<T>(
     private val delegate: MutableList<T>,
-) : io.github.hristogochev.vortex.util.ThreadSafeList<T>, MutableList<T> {
+) : ThreadSafeList<T>, MutableList<T> {
     constructor() : this(delegate = mutableListOf())
 
     private val syncObject = SynchronizedObject()

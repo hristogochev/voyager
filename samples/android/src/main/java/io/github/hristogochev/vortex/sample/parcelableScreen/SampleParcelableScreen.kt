@@ -32,7 +32,7 @@ data class ParcelableContent(
 
 @Parcelize
 data class SampleParcelableScreen(
-    val parcelable: io.github.hristogochev.vortex.sample.parcelableScreen.ParcelableContent,
+    val parcelable: ParcelableContent,
     val wrapContent: Boolean = false,
     override val key: String = uniqueScreenKey(),
 ) : Screen, Parcelable {
@@ -84,7 +84,7 @@ data class SampleParcelableScreen(
                 Button(
                     onClick = {
                         navigator.push(
-                            io.github.hristogochev.vortex.sample.parcelableScreen.SampleParcelableScreen(
+                            SampleParcelableScreen(
                                 parcelable.copy(index = parcelable.index.inc()),
                                 wrapContent
                             )
@@ -100,7 +100,7 @@ data class SampleParcelableScreen(
                 Button(
                     onClick = {
                         navigator.replace(
-                            io.github.hristogochev.vortex.sample.parcelableScreen.SampleParcelableScreen(
+                            SampleParcelableScreen(
                                 parcelable.copy(index = parcelable.index.inc()),
                                 wrapContent
                             )

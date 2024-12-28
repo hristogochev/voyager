@@ -11,7 +11,7 @@ class KoinIntegrationActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         setContent {
-            Navigator(io.github.hristogochev.vortex.sample.koinIntegration.KoinScreen())
+            Navigator(KoinScreen())
         }
     }
 }

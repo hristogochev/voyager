@@ -12,7 +12,7 @@ class KoinScreen : Screen {
 
     @Composable
     override fun Content() {
-        val screenModel = koinScreenModel<io.github.hristogochev.vortex.sample.koinIntegration.KoinScreenModel>()
+        val screenModel = koinScreenModel<KoinScreenModel>()
 
         ListContent(screenModel.items)
     }

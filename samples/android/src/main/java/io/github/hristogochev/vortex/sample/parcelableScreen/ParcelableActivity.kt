@@ -12,8 +12,8 @@ class ParcelableActivity : ComponentActivity() {
 
         setContent {
             Navigator(
-                screen = io.github.hristogochev.vortex.sample.parcelableScreen.SampleParcelableScreen(
-                    parcelable = io.github.hristogochev.vortex.sample.parcelableScreen.ParcelableContent(
+                screen = SampleParcelableScreen(
+                    parcelable = ParcelableContent(
                         index = 0
                     )
                 ),
