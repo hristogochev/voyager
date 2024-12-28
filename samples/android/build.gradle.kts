@@ -32,7 +32,9 @@ dependencies {
 
     implementation(libs.kodein)
     implementation(libs.koin.compose)
-    implementation(libs.koin)
+    implementation(libs.koin.core)
+    implementation(libs.koin.android)
+
 
     implementation(libs.compose.ui)
     implementation(libs.compose.material3)

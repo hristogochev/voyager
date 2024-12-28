@@ -87,12 +87,15 @@ kotlin {
     macosArm64(macOsConfiguration)
 
     sourceSets {
+
         commonMain.dependencies {
             implementation(compose.material3)
             implementation(compose.runtime)
 
             implementation(libs.kodein)
             implementation(libs.koin.compose)
+            implementation(libs.koin.core)
+
             implementation(libs.lifecycle.kmp)
 
             implementation(project(":vortex"))
@@ -104,6 +107,8 @@ kotlin {
             implementation(libs.compose.activity)
             implementation(libs.compose.ui)
             implementation(libs.compose.material3)
+
+            implementation(libs.koin.android)
         }
 
         val desktopMain by getting {

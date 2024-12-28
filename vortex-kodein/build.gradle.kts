@@ -48,9 +48,6 @@ kotlin {
             implementation(project(":vortex"))
             implementation(libs.kodein)
         }
-        nativeMain.dependencies {
-
-        }
     }
 }
 

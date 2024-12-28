@@ -46,9 +46,6 @@ kotlin {
             implementation(project(":vortex"))
             implementation(libs.koin.compose)
         }
-        nativeMain.dependencies {
-            
-        }
     }
 }
 
