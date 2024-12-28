@@ -14,7 +14,7 @@ kotlin {
     explicitApi = ExplicitApiMode.Strict
 
     androidTarget {
-        publishLibraryVariants("release")
+        publishLibraryVariants("release", "debug")
         compilerOptions {
             jvmTarget.set(JvmTarget.JVM_1_8)
         }
