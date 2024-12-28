@@ -99,6 +99,7 @@ See the [project website](https://hristogochev.github.io/vortex) for documentati
   Hilt, and RxJava.
 * **No screen-specific lifecycle owners**:<br>Screens no longer override the default
   LocalLifecycleOwner.
+* **No screen registry**:<br>Unlike Voyager, Vortex does not provide a screen registry.
 
 ### Acknowledgments
 
