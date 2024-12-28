@@ -16,7 +16,7 @@ plugins {
 
 android {
 //    kotlinOptions {
-//        jvmTarget = "11"
+//        jvmTarget = "1.8"
 //    }
     namespace = "io.github.hristogochev.vortex.sample.multiplatform"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
@@ -27,8 +27,8 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
     }
 }
 
@@ -40,7 +40,7 @@ kotlin {
     // Android
     androidTarget {
         compilerOptions {
-            jvmTarget.set(JvmTarget.JVM_11)
+            jvmTarget.set(JvmTarget.JVM_1_8)
         }
     }
 
@@ -91,7 +91,13 @@ kotlin {
             implementation(compose.material3)
             implementation(compose.runtime)
 
+            implementation(libs.kodein)
+            implementation(libs.koin.compose)
+            implementation(libs.lifecycle.kmp)
+
             implementation(project(":vortex"))
+            implementation(project(":vortex-koin"))
+            implementation(project(":vortex-kodein"))
         }
 
         androidMain.dependencies {

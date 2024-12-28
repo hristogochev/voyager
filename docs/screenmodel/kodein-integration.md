@@ -11,20 +11,21 @@ val homeModule = DI.Module(name = "home") {
 }
 ```
 
-Call `rememberScreenModel()` or `rememberNavigatorScreenModel()` to get a new instance.
+Call `kodeinScreenModel()` or `kodeinNavigatorScreenModel()` to get a new instance.
 
 ```kotlin
 class HomeScreen : Screen {
 
     @Composable
     override fun Content() {
-        val screenModel = rememberScreenModel<HomeScreenModel>()
+        val screenModel = kodeinScreenModel<HomeScreenModel>()
         // ...
         val navigator = LocalNavigator.currentOrThrow
-        val screenModel = navigator.rememberNavigatorScreenModel<HomeScreenModel>()
+        val navigatorScreenModel = navigator.kodeinNavigatorScreenModel<HomeScreenModel>()
         // ...
     }
 }
 ```
 
-!!! info "You can find source code for a working example [here](https://github.com/hristogochev/vortex)."
+
+!!! info "You can find source code for a working example [here](https://github.com/hristogochev/vortex/blob/main/samples/multiplatform/src/commonMain/kotlin/io/github/hristogochev/vortex/sample/multiplatform/screenModel/kodein/Kodein.kt)."

@@ -48,8 +48,8 @@ abstract class BaseSampleScreen(
     private val transitionType: String,
     private val index: Int,
     override val key: String = "SampleScreen$index",
-    override val onAppear: ScreenTransition? = null,
-    override val onDisappear: ScreenTransition? = null,
+    override val onAppearTransition: ScreenTransition? = null,
+    override val onDisappearTransition: ScreenTransition? = null,
 ) : Screen {
 
 
@@ -105,8 +105,8 @@ data class FadeAnimationSampleScreen(private val index: Int) :
     BaseSampleScreen(
         "Fade transition",
         index = index,
-        onAppear = FadeTransition,
-        onDisappear = FadeTransition
+        onAppearTransition = FadeTransition,
+        onDisappearTransition = FadeTransition
     )
 
 data class SlideInVerticallyAnimationSampleScreen(
@@ -114,6 +114,6 @@ data class SlideInVerticallyAnimationSampleScreen(
 ) : BaseSampleScreen(
     "slide in vertically transition",
     index = index,
-    onAppear = SlideTransition.Vertical.Appear,
-    onDisappear = SlideTransition.Vertical.Disappear
+    onAppearTransition = SlideTransition.Vertical.Appear,
+    onDisappearTransition = SlideTransition.Vertical.Disappear
 )

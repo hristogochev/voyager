@@ -7,7 +7,7 @@ Declare your `ScreenModel`s using the `factory` component.
 
 ```kotlin
 val homeModule = module {
-    factory { HomeScreenModel() } 
+    factory { HomeScreenModel() }
 }
 ```
 
@@ -18,14 +18,15 @@ class HomeScreen : Screen {
 
     @Composable
     override fun Content() {
-        val screenModel = getScreenModel<HomeScreenModel>()
+        val screenModel = koinScreenModel<HomeScreenModel>()
         // ...
         val navigator = LocalNavigator.currentOrThrow
-        val screenModel = navigator.getNavigatorScreenModel<HomeScreenModel>()
+        val navigatorScreenModel = navigator.koinNavigatorScreenModel<HomeScreenModel>()
         // ...
     }
 }
 ```
 
-!!! info "You can find source code for a working example [here](https://github.com/hristogochev/vortex)."
+
+!!! info "You can find source code for a working example [here](https://github.com/hristogochev/vortex/blob/main/samples/multiplatform/src/commonMain/kotlin/io/github/hristogochev/vortex/sample/multiplatform/screenModel/koin/Koin.kt)."
 

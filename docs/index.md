@@ -43,7 +43,7 @@ fun App() {
 * [Deep linking](deep-links.md) support
 * State-aware [Stack API](stack-api.md)
 
-### Differences with Voyager
+### **Differences with Voyager**
 
 ##### Navigation
 * **Navigator-Screen Linking**:<br>Navigators are now directly linked to their parent screen instead of their parent navigator.  
@@ -63,7 +63,7 @@ fun App() {
 ##### Missing features
 * **Android specific state management**:<br>No support for Android-specific APIs, such as LiveData, Hilt, and RxJava.
 * **No screen-specific lifecycle owners**:<br>Screens no longer override the default LocalLifecycleOwner.
-
+* **No screen registry**:<br>Unlike Voyager, Vortex does not provide a screen registry.
 
 ### Acknowledgments
 

@@ -10,10 +10,10 @@ public interface Screen : Serializable {
     public val key: String
         get() = name()
 
-    public val onAppear: ScreenTransition?
+    public val onAppearTransition: ScreenTransition?
         get() = null
 
-    public val onDisappear: ScreenTransition?
+    public val onDisappearTransition: ScreenTransition?
         get() = null
 
     @Composable

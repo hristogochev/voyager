@@ -40,8 +40,8 @@ fun Tab.TabContent() {
     Navigator(BasicNavigationScreen(index = 0)) { navigator ->
         CurrentScreen(
             navigator = navigator,
-            onScreenAppear = SlideTransition.Horizontal.Appear,
-            onScreenDisappear = SlideTransition.Horizontal.Disappear,
+            defaultOnScreenAppearTransition = SlideTransition.Horizontal.Appear,
+            defaultOnScreenDisappearTransition = SlideTransition.Horizontal.Disappear,
         ) { screen ->
             Column {
                 InnerTabNavigation()

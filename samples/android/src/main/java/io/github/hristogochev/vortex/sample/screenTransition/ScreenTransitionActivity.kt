@@ -39,8 +39,8 @@ class ScreenTransitionActivity : ComponentActivity() {
             Box(modifier = Modifier.fillMaxSize()) {
                 CurrentScreen(
                     navigator = navigator,
-                    onScreenAppear = SlideTransition.Horizontal.Appear,
-                    onScreenDisappear = SlideTransition.Horizontal.Disappear,
+                    defaultOnScreenAppearTransition = SlideTransition.Horizontal.Appear,
+                    defaultOnScreenDisappearTransition = SlideTransition.Horizontal.Disappear,
                 )
 
                 Column(

@@ -9,7 +9,7 @@ plugins {
 
 android {
     kotlinOptions {
-        jvmTarget = "11"
+        jvmTarget = "1.8"
     }
     namespace = "io.github.hristogochev.vortex.sample"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
@@ -20,8 +20,8 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
     }
 }
 

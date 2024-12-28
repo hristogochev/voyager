@@ -21,6 +21,7 @@ private val animationSpec: FiniteAnimationSpec<Float> =
     spring(stiffness = Spring.StiffnessMediumLow)
 
 public sealed interface ScaleTransition : ScreenTransition {
+
     public data object Appear : ScaleTransition {
         private val scales = Scales.Enter
         override fun enter(): EnterTransition {
@@ -34,6 +35,7 @@ public sealed interface ScaleTransition : ScreenTransition {
 
     public data object Disappear : ScaleTransition {
         private val scales = Scales.Exit
+
         override fun enter(): EnterTransition {
             return scaleIn(initialScale = scales.initial, animationSpec = animationSpec)
         }

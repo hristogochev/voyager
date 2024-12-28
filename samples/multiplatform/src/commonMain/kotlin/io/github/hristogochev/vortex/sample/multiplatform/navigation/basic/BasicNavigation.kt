@@ -40,7 +40,7 @@ data class DetailsScreen(val id: Long) : Screen {
         Button(
             onClick = {
                 navigator.pop()
-                // If we invoked "replace" on the current screen with this one instead of pushing, "pop" won't do anything
+                // If we invoked "replace" on the current screen with this one instead of pushing, "pop" wouldn't do anything.
             }
         ) {
             Text(text = "Go back")

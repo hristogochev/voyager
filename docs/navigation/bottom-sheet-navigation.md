@@ -5,7 +5,7 @@ The only difference between basic navigation and bottom sheet navigation is that
 
 ```kotlin
 @Composable
-fun App(){
+fun App() {
     var showBottomSheet by remember {
         mutableStateOf(false)
     }
@@ -29,11 +29,11 @@ fun App(){
                 showBottomSheet = false
             },
         ) {
-            Navigator(FirstBottomSheetScreen(), disposeOnForgotten = true)
+            Navigator(FirstBottomSheetScreen, disposeOnForgotten = true)
         }
     }
 }
 ```
 
-!!! info "You can find source code for a working example [here](https://github.com/hristogochev/vortex)."
+!!! info "You can find source code for a working example [here](https://github.com/hristogochev/vortex/blob/main/samples/multiplatform/src/commonMain/kotlin/io/github/hristogochev/vortex/sample/multiplatform/navigation/bottomSheet/BottomSheetNavigation.kt)."
 

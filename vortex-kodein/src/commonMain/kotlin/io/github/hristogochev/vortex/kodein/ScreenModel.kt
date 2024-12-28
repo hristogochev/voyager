@@ -10,14 +10,14 @@ import org.kodein.di.direct
 import org.kodein.di.provider
 
 @Composable
-public inline fun <reified T : ScreenModel> rememberScreenModel(
+public inline fun <reified T : ScreenModel> kodeinScreenModel(
     tag: Any? = null,
 ): T = with(localDI()) {
     rememberScreenModel(tag = tag?.toString()) { direct.provider<T>(tag)() }
 }
 
 @Composable
-public inline fun <reified A : Any, reified T : ScreenModel> rememberScreenModel(
+public inline fun <reified A : Any, reified T : ScreenModel> kodeinScreenModel(
     tag: Any? = null,
     arg: A,
 ): T = with(localDI()) {
@@ -25,14 +25,14 @@ public inline fun <reified A : Any, reified T : ScreenModel> rememberScreenModel
 }
 
 @Composable
-public inline fun <reified T : ScreenModel> Navigator.rememberNavigatorScreenModel(
+public inline fun <reified T : ScreenModel> Navigator.kodeinNavigatorScreenModel(
     tag: Any? = null,
 ): T = with(localDI()) {
     rememberNavigatorScreenModel(tag = tag?.toString()) { direct.provider<T>(tag)() }
 }
 
 @Composable
-public inline fun <reified A : Any, reified T : ScreenModel> Navigator.rememberNavigatorScreenModel(
+public inline fun <reified A : Any, reified T : ScreenModel> Navigator.kodeinNavigatorScreenModel(
     tag: Any? = null,
     arg: A,
 ): T = with(localDI()) {

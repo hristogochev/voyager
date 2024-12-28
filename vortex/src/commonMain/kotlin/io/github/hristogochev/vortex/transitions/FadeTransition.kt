@@ -12,7 +12,6 @@ import io.github.hristogochev.vortex.screen.ScreenTransition
 private val animationSpec: FiniteAnimationSpec<Float> =
     spring(stiffness = Spring.StiffnessMediumLow)
 
-
 public data object FadeTransition : ScreenTransition {
     override fun enter(): EnterTransition {
         return fadeIn(animationSpec = animationSpec)

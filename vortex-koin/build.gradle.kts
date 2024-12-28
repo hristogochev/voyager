@@ -16,14 +16,14 @@ kotlin {
     androidTarget {
         publishLibraryVariants("release")
         compilerOptions {
-            jvmTarget.set(JvmTarget.JVM_11)
+            jvmTarget.set(JvmTarget.JVM_1_8)
         }
     }
 
 
     jvm("desktop") {
         compilerOptions {
-            jvmTarget.set(JvmTarget.JVM_11)
+            jvmTarget.set(JvmTarget.JVM_1_8)
         }
     }
 
@@ -60,8 +60,8 @@ android {
         consumerProguardFiles("consumer-rules.pro")
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
     }
 }
 

@@ -7,7 +7,6 @@ import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
 import androidx.compose.animation.SizeTransform
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
@@ -20,9 +19,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import io.github.hristogochev.vortex.model.ScreenModelStore
-import io.github.hristogochev.vortex.navigator.LocalNavigator
 import io.github.hristogochev.vortex.navigator.LocalNavigatorStateHolder
-import io.github.hristogochev.vortex.navigator.LocalScreenStateKey
 import io.github.hristogochev.vortex.navigator.Navigator
 import io.github.hristogochev.vortex.stack.StackEvent
 import io.github.hristogochev.vortex.stack.isDisposableEvent
@@ -40,8 +37,8 @@ import io.github.hristogochev.vortex.util.currentOrThrow
 @Composable
 public fun CurrentScreen(
     navigator: Navigator,
-    onScreenAppear: ScreenTransition? = null,
-    onScreenDisappear: ScreenTransition? = null,
+    defaultOnScreenAppearTransition: ScreenTransition? = null,
+    defaultOnScreenDisappearTransition: ScreenTransition? = null,
     modifier: Modifier = Modifier,
     contentAlignment: Alignment = Alignment.TopStart,
     contentKey: (Screen) -> Any = { it.key },
@@ -70,8 +67,8 @@ public fun CurrentScreen(
         transitionSpec = {
 
             val transition = when (navigator.lastEvent) {
-                StackEvent.Pop -> initialState.onDisappear ?: onScreenDisappear
-                else -> targetState.onAppear ?: onScreenAppear
+                StackEvent.Pop -> initialState.onDisappearTransition ?: defaultOnScreenDisappearTransition
+                else -> targetState.onAppearTransition ?: defaultOnScreenAppearTransition
             }
 
             ContentTransform(
@@ -174,32 +171,6 @@ public fun CurrentScreenNoTransitionsDisposable(navigator: Navigator) {
             }
 
             navigator.clearEvent()
-        }
-    }
-}
-
-/**
- * Renders the current screen, saving its state even if its no longer displayed.
- *
- * This function should only be used externally if you want to create a totally custom transition, e.g. iOS swipe.
- */
-@Composable
-public fun <T : Screen> T.render(content: @Composable (T) -> Unit = { it.Content() }) {
-
-    val stateHolder = LocalNavigatorStateHolder.currentOrThrow
-    val navigator = LocalNavigator.currentOrThrow
-
-    val screenStateKey = remember(key, navigator.key) {
-        "${key}:${navigator.key}"
-    }
-
-    navigator.associateScreenStateKey(screenStateKey)
-
-    stateHolder.SaveableStateProvider(screenStateKey) {
-        CompositionLocalProvider(
-            LocalScreenStateKey provides screenStateKey
-        ) {
-            content(this)
         }
     }
 }

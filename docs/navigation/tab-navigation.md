@@ -2,19 +2,23 @@
 
 !!! warning "Before reading this section it is advised to have read [Advanced navigation](advanced-navigation.md)."
 
-To set up tab navigation, simply implement the `Tab` interface for a data class or object.<br>
+To set up tab navigation, simply implement the `Tab` interface for a data class or object.
+
 A `Tab` needs to have its own distinct index, and it's also a screen in itself.
 For example, like a `Screen`, it also has a `Content` function that is used for displaying its contents.
 
 ```kotlin
-data class HomeTab(override val index = 0u) : Tab {
+data object HomeTab : Tab {
+    override val index: UInt = 0u
 
     @Composable
     override fun Content() {
         // ...
     }
 }
-data class ProfileTab(override val index = 1u) : Tab {
+
+data object ProfileTab : Tab {
+    override val index: UInt = 1u
 
     @Composable
     override fun Content() {
@@ -31,10 +35,10 @@ Let's create a `Navigator` that manages tabs inside one.
 ```kotlin
 @Composable
 fun App(){
-    Navigator(HomeTab){ navigator->
+    Navigator(HomeTab) { navigator ->
         Scaffold(
-            content = { 
-                CurrentTab(navigator) 
+            content = {
+                CurrentTab(navigator)
             },
             bottomBar = {
                 NavigationBar {
@@ -48,8 +52,8 @@ fun App(){
 
 @Composable
 private fun RowScope.TabNavigationItem(tab: Tab) {
-    val navigator = LocalNavigator.current
-    
+    val navigator = LocalNavigator.currentOrThrow
+
     val icon = when (tab.index) {
         0u -> rememberVectorPainter(Icons.Default.Home)
         1u -> rememberVectorPainter(Icons.Default.Person)
@@ -72,4 +76,4 @@ private fun RowScope.TabNavigationItem(tab: Tab) {
 
 !!! note "Tabs never get disposed until the screen owning the navigator they are in gets disposed."
 
-!!! info "You can find source code for a working example [here](https://github.com/hristogochev/vortex)."
+!!! info "You can find source code for a working example [here](https://github.com/hristogochev/vortex/blob/main/samples/multiplatform/src/commonMain/kotlin/io/github/hristogochev/vortex/sample/multiplatform/navigation/tab/TabNavigation.kt)."

@@ -1,12 +1,13 @@
-# Lifecycle
+package io.github.hristogochev.vortex.sample.multiplatform.lifecycle
 
-Inside a `Screen`, you can call `ScreenDisposableEffect` to execute a block of code 
-the first time a `Screen` appears or any of its keys change.
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
+import androidx.lifecycle.compose.LocalLifecycleOwner
+import io.github.hristogochev.vortex.screen.Screen
+import io.github.hristogochev.vortex.screen.ScreenDisposableEffect
 
-You can also execute a block of code 
-when the `Screen` gets disposed or any of its keys change using the `onDispose` callback.
-
-```kotlin
 data object HomeScreen : Screen {
 
     @Composable
@@ -21,12 +22,12 @@ data object HomeScreen : Screen {
 
         val counter = remember { 1 }
 
-        ScreenDisposableEffect(counter) {
-            println("Counter: $counter")
-            onDispose {
-                println("Counter changed")
+            ScreenDisposableEffect(counter) {
+                println("Counter: $counter")
+                onDispose {
+                    println("Counter changed")
+                }
             }
-        }
 
         val lifecycleOwner = LocalLifecycleOwner.current
 
@@ -69,6 +70,3 @@ data object HomeScreen : Screen {
         // ...
     }
 }
-```
-
-!!! info "You can find source code for a working example [here](https://github.com/hristogochev/vortex/blob/main/samples/multiplatform/src/commonMain/kotlin/io/github/hristogochev/vortex/sample/multiplatform/lifecycle/Lifecycle.kt)."

@@ -12,7 +12,7 @@ default.
 
 ```kotlin
 // ✔️ DO
-data class Post(/*...*/) : Serializable
+data class Post(/*...*/) : java.io.Serializable
 
 data class ValidScreen(
     val userId: Long, // Built-in serializable types
@@ -124,8 +124,8 @@ The `Screen` interface has a `key` property that defines it in each `Navigator`.
 The default key for a `Screen` is its name. You can override it to set your own key.
 
 ```kotlin
-data object HomeScreen(
-    override val key = "CUSTOM_KEY"
+data class HomeScreen(
+    override val key: String = "CUSTOM_KEY"
 ) : Screen {
 
     @Composable

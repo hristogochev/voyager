@@ -5,13 +5,11 @@
 [![License MIT](https://img.shields.io/github/license/hristogochev/vortex.svg?style=for-the-badge&color=orange)](LICENSE.md)
 
 <h1 align="center">
+    <br>
     <img height="150" src="docs/img/logo_vortex.png"/>
     <br>
     <a href="https://io.github.hristogochev/vortex">Vortex</a>: Spin up your Compose Navigation
 </h1>
-
-
-### [Vortex](https://github.com/hristogochev/vortex): Spin up your Compose Navigation
 
 Stability-focused Compose Multiplatform Navigation Library, fork of [Voyager](https://github.com/adrielcafe/voyager).
 
@@ -37,6 +35,9 @@ fun App() {
     Navigator(HomeScreen)
 }
 ```
+
+### Documentation
+See the [project website](https://hristogochev.github.io/vortex) for documentation and APIs.
 
 ### **Features**
 - [Supported platforms](setup.md): Android, iOS, Desktop, Wasm, JS

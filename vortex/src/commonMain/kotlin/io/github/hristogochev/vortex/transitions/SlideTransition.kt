@@ -26,7 +26,6 @@ public enum class SlideDirection(
     Forward({ size: Int -> size }, { size: Int -> -size })
 }
 
-
 private val animationSpec: FiniteAnimationSpec<IntOffset> = spring(
     stiffness = Spring.StiffnessMediumLow,
     visibilityThreshold = IntOffset.VisibilityThreshold

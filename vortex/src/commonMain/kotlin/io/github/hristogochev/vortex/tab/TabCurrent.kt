@@ -1,7 +1,6 @@
 package io.github.hristogochev.vortex.tab
 
 import androidx.compose.animation.AnimatedContent
-import androidx.compose.animation.AnimatedContentTransitionScope
 import androidx.compose.animation.AnimatedVisibilityScope
 import androidx.compose.animation.ContentTransform
 import androidx.compose.animation.Crossfade
@@ -10,7 +9,6 @@ import androidx.compose.animation.ExitTransition
 import androidx.compose.animation.SizeTransform
 import androidx.compose.animation.core.FiniteAnimationSpec
 import androidx.compose.animation.core.tween
-import androidx.compose.animation.togetherWith
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import io.github.hristogochev.vortex.navigator.Navigator
@@ -30,8 +28,8 @@ import io.github.hristogochev.vortex.stack.StackEvent
 @Composable
 public fun CurrentTab(
     navigator: Navigator,
-    onScreenAppear: ScreenTransition? = null,
-    onScreenDisappear: ScreenTransition? = null,
+    defaultOnScreenAppearTransition: ScreenTransition? = null,
+    defaultOnScreenDisappearTransition: ScreenTransition? = null,
     modifier: Modifier = Modifier,
     content: @Composable AnimatedVisibilityScope.(Tab) -> Unit = { it.Content() },
 ) {
@@ -40,8 +38,8 @@ public fun CurrentTab(
         transitionSpec = {
 
             val transition = when (navigator.lastEvent) {
-                StackEvent.Pop -> initialState.onDisappear ?: onScreenDisappear
-                else -> targetState.onAppear ?: onScreenAppear
+                StackEvent.Pop -> initialState.onDisappearTransition ?: defaultOnScreenDisappearTransition
+                else -> targetState.onAppearTransition ?: defaultOnScreenAppearTransition
             }
 
             ContentTransform(
