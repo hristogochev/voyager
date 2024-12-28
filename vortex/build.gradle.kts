@@ -80,7 +80,7 @@ android {
 mavenPublishing {
     publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL)
 
-//    signAllPublications()
+    signAllPublications()
 
     coordinates(group.toString(), "vortex", version.toString())
 
