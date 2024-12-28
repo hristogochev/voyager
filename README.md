@@ -4,13 +4,12 @@
 [![ktlint](https://img.shields.io/badge/code%20style-%E2%9D%A4-FF4081.svg?style=for-the-badge)](https://ktlint.github.io/)
 [![License MIT](https://img.shields.io/github/license/hristogochev/vortex.svg?style=for-the-badge&color=orange)](LICENSE.md)
 
-<h1 align="center">
-    <br>
-    <img height="150" src="docs/img/logo_vortex.png"/>
-    <br>
-    <br>
-    <a href="https://io.github.hristogochev/vortex">Vortex</a>: Spin up your Compose Navigation
-</h1>
+<div align="center" style="padding-top: 20px;">
+    <img height="150" src="docs/img/logo_vortex.png" alt="Logo"/>
+    <h1 style="padding-top: 4px;">
+        <a href="https://io.github.hristogochev/vortex">Vortex</a>: Spin up your Compose Navigation
+    </h1>
+</div>
 
 Stability-focused Compose Multiplatform Navigation Library, fork of [Voyager](https://github.com/adrielcafe/voyager).
 
@@ -38,10 +37,12 @@ fun App() {
 ```
 
 ### Documentation
+
 See the [project website](https://hristogochev.github.io/vortex) for documentation and APIs.
 
 ### **Features**
-- [Supported platforms](https://hristogochev.github.io/vortex/setup): Android, iOS, Desktop and Web
+
+* [Supported platforms](https://hristogochev.github.io/vortex/setup): Android, iOS, Desktop, Wasm and JS
 * [Basic navigation](https://hristogochev.github.io/vortex/navigation)
 * [Nested navigation](https://hristogochev.github.io/vortex/navigation/nested-navigation)
 * [Bottom sheet navigation](https://hristogochev.github.io/vortex/navigation/bottom-sheet-navigation)
@@ -57,28 +58,36 @@ See the [project website](https://hristogochev.github.io/vortex) for documentati
 ### Differences with Voyager
 
 ##### Navigation
-* **Navigator-Screen Linking**:<br>Navigators are now directly linked to their parent screen instead of their parent navigator.
+
+* **Navigator-Screen Linking**:<br>Navigators are now directly linked to their parent screen instead of their parent
+  navigator.
 * **Automatic Disposal**:<br>When a screen is disposed, all navigators within it are automatically disposed.
 * **Flexible Bottom Sheet Navigation**:<br>Bottom sheet navigation can now be used in any bottom sheet.
-* **Simplified Bottom Sheet Navigators**:<br> Bottom sheet navigators have been streamlined into simple navigators with a `disposeOnForgotten` flag.
+* **Simplified Bottom Sheet Navigators**:<br> Bottom sheet navigators have been streamlined into simple navigators with
+  a `disposeOnForgotten` flag.
 
 ##### Transitions
-* **Navigator Default Transitions**:<br>You can specify default navigator overridable screen appear and disappear transitions.
+
+* **Navigator Default Transitions**:<br>You can specify default navigator overridable screen appear and disappear
+  transitions.
 * **Runtime Appear Transition**:<br>You can specify the appear transition for a screen at runtime.
 * **Runtime Disappear Transition**:<br>You can specify the disappear transition for a screen at runtime.
 
 ##### Lifecycle
+
 * **Screen Disposable Effect**:<br>A new screen disposable effect is available, tied to the lifecycle of the screen.
-* **Reliable Application Lifecycle Owner**:<br>You can now reliably access the application's multiplatform lifecycle owner without risk of failure to update.
+* **Reliable Application Lifecycle Owner**:<br>You can now reliably access the application's multiplatform lifecycle
+  owner without risk of failure to update.
 
 ##### Missing features
+
 * **Android specific state management**:<br>No support for Android-specific APIs, such as LiveData, Hilt, and RxJava.
 * **No screen-specific lifecycle owners**:<br>Screens no longer override the default LocalLifecycleOwner.
 
-
 ### Acknowledgments
 
-* Big thanks to [Adriel Café](https://adriel.cafe/) and all contributors of the original [Voyager](https://github.com/adrielcafe/voyager) library.
+* Big thanks to [Adriel Café](https://adriel.cafe/) and all contributors of the
+  original [Voyager](https://github.com/adrielcafe/voyager) library.
 
 ### Samples
 
