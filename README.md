@@ -5,7 +5,7 @@
 [![License MIT](https://img.shields.io/github/license/hristogochev/vortex.svg?style=for-the-badge&color=orange)](LICENSE.md)
 
 <div align="center">
-    <img height="150" style="padding-top: 20px; padding-bottom: 4px;" src="docs/img/logo_vortex.png" alt="Logo"/>
+    <img height="150" style="padding-top: 32px; padding-bottom: 4px;" src="docs/img/logo_vortex.png" alt="Logo"/>
     <h1>
         <a href="https://io.github.hristogochev/vortex">Vortex</a>: Spin up your Compose Navigation
     </h1>
