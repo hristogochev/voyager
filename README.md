@@ -1,4 +1,4 @@
-[![Maven metadata URL](https://img.shields.io/maven-metadata/v?color=blue&metadataUrl=https://s01.oss.sonatype.org/service/local/repo_groups/public/content/io/github/hristogochev/vortex/maven-metadata.xml&style=for-the-badge)](https://repo.maven.apache.org/maven2/io/github/hristogochev/vortex/)
+[![Maven metadata URL](https://img.shields.io/maven-metadata/v?color=blue&metadataUrl=https://repo.maven.apache.org/maven2/io/github/hristogochev/vortex/maven-metadata.xml&style=for-the-badge)](https://repo.maven.apache.org/maven2/io/github/hristogochev/vortex/)
 [![Android API](https://img.shields.io/badge/api-21%2B-brightgreen.svg?style=for-the-badge)](https://android-arsenal.com/api?level=21)
 [![kotlin](https://img.shields.io/github/languages/top/hristogochev/vortex.svg?style=for-the-badge&color=blueviolet)](https://kotlinlang.org/)
 [![ktlint](https://img.shields.io/badge/code%20style-%E2%9D%A4-FF4081.svg?style=for-the-badge)](https://ktlint.github.io/)
