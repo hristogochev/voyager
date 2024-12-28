@@ -1,0 +1,48 @@
+name: MkDocs Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-deploy:
+    name: Build and Deploy Documentation
+    runs-on: ubuntu-latest
+    steps:
+      # Step 1: Checkout the repository.
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      # Step 2: Set up Python environment.
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.8'
+
+      # Step 3: Cache Python dependencies.
+      - name: Cache Dependencies
+        uses: actions/cache@v2
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+
+      # Step 4: Install MkDocs and required plugins.
+      - name: Install MkDocs and Plugins
+        run: |
+          pip install mkdocs-material
+          pip install pillow cairosvg
+
+      # Step 5: Build the documentation.
+      - name: Build MkDocs Site
+        run: mkdocs build
+
+      # Step 6: Deploy using mkdocs gh-deploy.
+      - name: Deploy to GitHub Pages
+        run: mkdocs gh-deploy --force --verbose --remote-branch gh-pages
+

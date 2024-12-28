@@ -1,7 +1,7 @@
 # Nested navigation
 
-There should be no issues if you need to set up some sort of nested navigation.
-Any navigator `N` with screen `B` created within screen `A` is `bound` to the lifecycle of screen `A`.
+There should be no issues if you need to set up some sort of nested navigation.<br>
+Any navigator `N` with screen `B` created within screen `A` is `bound` to the lifecycle of screen `A`.<br>
 If screen `A` happens to get disposed navigator `N` and its screen `B` will also get disposed.
 
 ```kotlin
@@ -29,5 +29,5 @@ data object ScreenB : Screen {
 
 !!! note "You can call LocalNavigator.currentOrThrow.parent to access the navigator of the screen owning the current navigator."
 
-!!! info "You can find source code for a working example [here](https://github.com/hristogochev/vortex)."
+!!! info "You can find source code for a working example [here](https://github.com/hristogochev/vortex/blob/main/samples/multiplatform/src/commonMain/kotlin/io/github/hristogochev/vortex/sample/multiplatform/navigation/nested/NestedNavigation.kt)."
 

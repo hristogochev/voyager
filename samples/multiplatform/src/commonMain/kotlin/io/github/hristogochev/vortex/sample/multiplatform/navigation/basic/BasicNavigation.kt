@@ -1,4 +1,4 @@
-package io.github.hristogochev.vortex.sample.multiplatform.basicNavigation
+package io.github.hristogochev.vortex.sample.multiplatform.navigation.basic
 
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text

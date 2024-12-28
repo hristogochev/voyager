@@ -2,6 +2,7 @@
 The MIT License (MIT)
 
 Copyright (c) 2021 Adriel Café
+
 Copyright (c) 2024 Hristo Gochev
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
