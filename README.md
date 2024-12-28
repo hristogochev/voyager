@@ -8,7 +8,7 @@
     <br>
     <img height="150" style="padding-bottom: 4px;" src="docs/img/logo_vortex.png" alt="Logo"/>
     <h1>
-        <a href="https://io.github.hristogochev/vortex">Vortex</a>: Spin up your Compose Navigation
+        <a href="https://hristogochev.github.io/vortex">Vortex</a>: Spin up your Compose Navigation
     </h1>
 </div>
 
