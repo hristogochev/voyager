@@ -38,11 +38,7 @@ jobs:
           pip install mkdocs-material
           pip install pillow cairosvg
 
-      # Step 5: Build the documentation.
-      - name: Build MkDocs Site
-        run: mkdocs build
-
       # Step 6: Deploy using mkdocs gh-deploy.
-      - name: Deploy to GitHub Pages
+      - name: Build and Deploy to GitHub Pages branch
         run: mkdocs gh-deploy --force --verbose --remote-branch gh-pages
 
