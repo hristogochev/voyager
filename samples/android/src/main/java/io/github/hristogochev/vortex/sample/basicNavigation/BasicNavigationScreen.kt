@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -22,10 +21,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import io.github.hristogochev.vortex.screen.Screen
-import io.github.hristogochev.vortex.screen.uniqueScreenKey
 import io.github.hristogochev.vortex.navigator.LocalNavigator
+import io.github.hristogochev.vortex.screen.Screen
 import io.github.hristogochev.vortex.screen.ScreenDisposableEffect
+import io.github.hristogochev.vortex.screen.uniqueScreenKey
 import io.github.hristogochev.vortex.util.currentOrThrow
 
 data class BasicNavigationScreen(
