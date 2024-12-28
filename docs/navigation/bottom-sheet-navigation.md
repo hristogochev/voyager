@@ -1,7 +1,7 @@
 # BottomSheet navigation
 
 The only difference between basic navigation and bottom sheet navigation is that any `Navigator` inside a `BottomSheet` needs to have its `disposeOnForgotten` flag set to `true`.
-<br>The flag is used to correctly dispose of the Navigator once it exists the composition. Necessary in ModalBottomSheets.
+<br>The flag is used to correctly dispose of the Navigator once it exits the composition. Necessary in ModalBottomSheets.
 
 ```kotlin
 @Composable
