@@ -23,7 +23,7 @@ public data object SerializableNavigatorSaverProvider : NavigatorSaverProvider<M
         return Saver(
             save = { navigator ->
                 // We need to use `.toList()` to create a copy of the items and screen state keys,
-                // otherwise their reference will be used, which will not work
+                // otherwise their references will be used, which will not work
 
                 // We use map to save the current navigator
                 // because maps are inherently serializable based on their contents

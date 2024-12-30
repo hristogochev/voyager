@@ -158,7 +158,7 @@ data object ExternalNavigatorSaverProvider : NavigatorSaverProvider<String> {
         return Saver(
             save = { navigator ->
                 // We need to use `.toList()` to create a copy of the items and screen state keys,
-                // otherwise their reference will be used, which will not work
+                // otherwise their references will be used, which will not work
                 val contentsMap = mapOf(
                     "items" to navigator.items.toList(),
                     "screenStateKeys" to navigator.getAllScreenStateKeys().toList()
