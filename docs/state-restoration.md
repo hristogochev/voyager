@@ -134,11 +134,7 @@ Keep in mind that a `Navigator` needs it's `key`, `screens` and `screenStateKeys
 You also need to pass it it's `parent` reference, which is conveniently accessible to you upon
 implementing the interface.
 
-Here is an example of how you can implement your own navigator saver provider and use it.<br>This
-approach, originally used by [kevinvanmierlo](https://github.com/hristogochev/vortex/issues/1) for
-restoring screens whose parameters and properties are not all serializable, demonstrates the
-process.
-
+Here’s an example of implementing a navigator saver provider, based on [kevinvanmierlo's solution](https://github.com/hristogochev/vortex/issues/1) for restoring screens with non-serializable parameters and properties:
 ```kotlin
 @Composable
 fun App() {
