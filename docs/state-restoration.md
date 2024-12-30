@@ -148,7 +148,8 @@ fun App() {
 }
 
 object NavigatorsStore {
-    // A mutable map of navigators, that takes the navigators' keys as keys, and their screens and screenStateKeys as values
+    // A mutable map of navigators, that takes the navigators' keys as keys,
+    // and their screens and screenStateKeys as values
     val navigators: MutableMap<String, Map<String, Any>> = mutableMapOf()
 }
 
@@ -158,7 +159,7 @@ data object ExternalNavigatorSaverProvider : NavigatorSaverProvider<String> {
             save = { navigator ->
                 // We need to use `.toList()` to create a copy of the items and screen state keys,
                 // otherwise their reference will be used, which will not work
-                val contentsMap= mapOf(
+                val contentsMap = mapOf(
                     "items" to navigator.items.toList(),
                     "screenStateKeys" to navigator.getAllScreenStateKeys().toList()
                 )
