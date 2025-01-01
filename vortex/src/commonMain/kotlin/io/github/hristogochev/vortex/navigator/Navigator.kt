@@ -89,6 +89,11 @@ public fun Navigator(
             navigatorSaverProvider.provide(parentUpdatedState)
         }
 
+        val navigatorSaverProviderDispose = navigatorSaverProvider::dispose
+        val navigatorSaverProviderDisposeUpdatedState by rememberUpdatedState(
+            navigatorSaverProviderDispose
+        )
+
         val navigator = rememberSaveable(saver = navigatorSaver) {
             val key = randomUuid()
             Navigator(screens, key, parentUpdatedState, ThreadSafeSet(emptySet()))
@@ -116,6 +121,8 @@ public fun Navigator(
                     ScreenModelStore.dispose(navigatorUpdatedState.key)
 
                     navigatorUpdatedState.clearEvent()
+
+                    navigatorSaverProviderDisposeUpdatedState(navigatorUpdatedState)
                 }
             }
         }
@@ -138,6 +145,8 @@ public fun Navigator(
                     ScreenModelStore.dispose(navigatorUpdatedState.key)
 
                     navigatorUpdatedState.clearEvent()
+
+                    navigatorSaverProviderDisposeUpdatedState(navigatorUpdatedState)
                 }
             }
         }

@@ -134,7 +134,7 @@ Keep in mind that a `Navigator` needs it's `key`, `screens` and `screenStateKeys
 You also need to pass it it's `parent` reference, which is conveniently accessible to you upon
 implementing the interface.
 
-Here’s an example of implementing a navigator saver provider, based on [kevinvanmierlo's solution](https://github.com/hristogochev/vortex/issues/1) for restoring screens with non-serializable parameters and properties:
+Here’s an example of implementing a navigator saver provider, based on [kevinvanmierlo's solution](https://github.com/hristogochev/vortex/issues/1) for restoring screens with non-serializable parameters and properties (with the drawback that process death on Android stops being supported):
 ```kotlin
 @Composable
 fun App() {
@@ -200,6 +200,11 @@ data object ExternalNavigatorSaverProvider : NavigatorSaverProvider<String> {
             }
         )
     }
+
+    override fun dispose(navigator: Navigator) {
+        // When a navigator is disposed make sure to clean up the NavigatorsStore
+        NavigatorsStore.navigators.remove(navigator.key)
+    }
 }
 ```
 
@@ -227,10 +232,28 @@ override val key = uniqueScreenKey()
 ```
 
 !!! warning
-You should **always** set your own key, if the screen is used multiple times in the same
-`Navigator`, or is
-an [anonymous](https://kotlinlang.org/docs/object-declarations.html#object-expressions)
-or [local](https://kotlinlang.org/spec/declarations.html#local-class-declaration) class.
+    You should **always** set your own key, if the screen is used multiple times in the same
+    `Navigator`, or is
+    an [anonymous](https://kotlinlang.org/docs/object-declarations.html#object-expressions)
+    or [local](https://kotlinlang.org/spec/declarations.html#local-class-declaration) class.
 
+### Ignoring process death on Android
+
+If you don't wish to support process death restoration on Android, you can add this to your Activity:
+```kotlin
+override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+
+    if (savedInstanceState != null) {
+        val intent = Intent(this, MainActivity::class.java)
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+        startActivity(intent)
+        finish()
+        return
+    }
+    
+    // ...
+}
+```
 
 

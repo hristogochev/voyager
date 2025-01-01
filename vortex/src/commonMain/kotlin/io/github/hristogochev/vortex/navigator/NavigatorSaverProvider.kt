@@ -10,7 +10,15 @@ import io.github.hristogochev.vortex.util.ThreadSafeSet
  * Use this to create your own navigator saver provider
  */
 public interface NavigatorSaverProvider<Saveable : Any> {
+    /**
+     * Provide the saver instance
+     */
     public fun provide(parent: Navigator?): Saver<Navigator, Saveable>
+
+    /**
+     * Perform any necessary cleanups when a navigator instance is disposed
+     */
+    public fun dispose(navigator: Navigator) {}
 }
 
 /**
