@@ -21,6 +21,7 @@ import io.github.hristogochev.vortex.util.randomUuid
 @Composable
 public fun ScreenDisposableEffect(
     key1: Any? = null,
+    disposeOnKeysChange: Boolean = true,
     effect: ScreenDisposableEffectScope.() -> ScreenDisposableEffectResult,
 ) {
     val screenStateKey = LocalScreenStateKey.currentOrThrow
@@ -41,7 +42,8 @@ public fun ScreenDisposableEffect(
             keys = set,
             keysChanged = {
                 it != set
-            }
+            },
+            disposeOnKeysChange = disposeOnKeysChange
         )
     }
 }
@@ -56,6 +58,7 @@ public fun ScreenDisposableEffect(
 @Composable
 public fun ScreenDisposableEffect(
     vararg keys: Any?,
+    disposeOnKeysChange: Boolean = true,
     effect: ScreenDisposableEffectScope.() -> ScreenDisposableEffectResult,
 ) {
     val screenStateKey = LocalScreenStateKey.currentOrThrow
@@ -76,7 +79,8 @@ public fun ScreenDisposableEffect(
             keys = set,
             keysChanged = {
                 it != set
-            }
+            },
+            disposeOnKeysChange = disposeOnKeysChange
         )
     }
 }

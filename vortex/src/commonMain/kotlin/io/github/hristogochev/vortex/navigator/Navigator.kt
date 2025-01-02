@@ -120,7 +120,7 @@ public fun Navigator(
         val localScreenStateKey = LocalScreenStateKey.current
 
         if (localScreenStateKey != null) {
-            ScreenDisposableEffect {
+            ScreenDisposableEffect(navigatorUpdatedState, disposeOnKeysChange = false) {
                 onDispose {
                     val screenStateKeys = navigatorUpdatedState.getAllScreenStateKeys()
 
