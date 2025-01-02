@@ -21,6 +21,7 @@ internal object ScreenDisposableEffectStore {
         effectKey: String,
         keys: Set<Any>,
         keysChanged: (Set<Any>) -> Boolean,
+        disposeOnKeysChange: Boolean = true,
         effect: ScreenDisposableEffectScope.() -> ScreenDisposableEffectResult,
     ) {
         val disposableEffects = scheduledScreenDisposals.getOrPut(screenStateKey) {
@@ -31,7 +32,9 @@ internal object ScreenDisposableEffectStore {
 
         if (isAlreadyScheduled != null) {
             if (keysChanged(isAlreadyScheduled.conditionalKeys)) {
-                isAlreadyScheduled.onDispose.dispose()
+                if (disposeOnKeysChange) {
+                    isAlreadyScheduled.onDispose.dispose()
+                }
                 disposableEffects.remove(isAlreadyScheduled)
                 val newOnDispose = effect(internalScreenDisposableEffectScope)
                 ScreenDisposableEffect(
